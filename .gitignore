@@ -1,0 +1,16 @@
+visualizations/
+weather_tensors/
+visual/
+old_aurora/
+finetune_aurora_3input_smal/
+ckpt/
+checkpoints/
+__pycache__/
+.history/
+.vscode/
+mean_std/
+aurora_checkpoints/
+download_era5.py
+lijinghao.py
+nc_file_read.py
+triton_model.py
