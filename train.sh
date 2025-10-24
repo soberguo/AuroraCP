@@ -1,2 +1,1 @@
-export CUDA_LAUNCH_BLOCKING=1
-python main.py
+CUDA_VISIBLE_DEVICES=0 python main.py --save_dir original --batchsize 2 --resume True

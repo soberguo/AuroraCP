@@ -11,7 +11,7 @@ from aurora.model.aurora import Aurora
 __all__ = ["rollout"]
 
 
-def rollout(model: Aurora, batch: Batch, steps: int) -> Generator[Batch, None, None]:
+def rollout(model: Aurora, batch: Batch, steps: int,args) -> Generator[Batch, None, None]:
     """Perform a roll-out to make long-term predictions.
 
     Args:
@@ -23,27 +23,27 @@ def rollout(model: Aurora, batch: Batch, steps: int) -> Generator[Batch, None, N
         :class:`aurora.batch.Batch`: The prediction after every step.
     """
     # We will need to concatenate data, so ensure that everything is already of the right form.
-    batch = model.batch_transform_hook(batch)  # This might modify the available variables.
+    batch = model.model.batch_transform_hook(batch)  # This might modify the available variables.
     # Use an arbitary parameter of the model to derive the data type and device.
-    p = next(model.parameters())
+    p = next(model.model.parameters())
     batch = batch.type(p.dtype)
     batch = batch.crop(model.patch_size)
     batch = batch.to(p.device)
 
     for _ in range(steps):
-        pred = model.forward(batch)
+        pred = model.forward(batch,args)
 
-        yield pred
+        yield pred[1]
 
         # Add the appropriate history so the model can be run on the prediction.
         batch = dataclasses.replace(
-            pred,
+            pred[1],
             surf_vars={
                 k: torch.cat([batch.surf_vars[k][:, 1:], v], dim=1)
-                for k, v in pred.surf_vars.items()
+                for k, v in pred[1].surf_vars.items()
             },
             atmos_vars={
                 k: torch.cat([batch.atmos_vars[k][:, 1:], v], dim=1)
-                for k, v in pred.atmos_vars.items()
+                for k, v in pred[1].atmos_vars.items()
             },
         )

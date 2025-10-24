@@ -1,0 +1,1000 @@
+2025-10-17 15:21:28 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 15:21:28 - INFO - 检查归一化统计数据...
+2025-10-17 15:21:28 - ERROR - 训练出错: tuple indices must be integers or slices, not str
+Traceback (most recent call last):
+  File "/sharefiles2/guoyixin/projects/Aurora/main.py", line 454, in <module>
+    main(args)
+  File "/sharefiles2/guoyixin/projects/Aurora/main.py", line 131, in main
+    mean_val = stats['mean']
+TypeError: tuple indices must be integers or slices, not str
+2025-10-17 15:22:53 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 15:23:09 - INFO - 可训练参数数量: 1,497,655,824
+2025-10-17 15:23:09 - INFO - 总参数数量: 2,753,662,992
+2025-10-17 15:23:09 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 0: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 1: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 2: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 3: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 4: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 5: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 6: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 7: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 8: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 9: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 10: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 11: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 12: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 13: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 14: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 15: 输入数据范围异常，跳过
+2025-10-17 15:23:09 - WARNING - Epoch 1, Step 16: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 17: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 18: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 19: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 20: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 21: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 22: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 23: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 24: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 25: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 26: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 27: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 28: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 29: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 30: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 31: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 32: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 33: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 34: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 35: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 36: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 37: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 38: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 39: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 40: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 41: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 42: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 43: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 44: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 45: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 46: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 47: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 48: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 49: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 50: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 51: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 52: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 53: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 54: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 55: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 56: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 57: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 58: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 59: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 60: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 61: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 62: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 63: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 64: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 65: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 66: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 67: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 68: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 69: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 70: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 71: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 72: 输入数据范围异常，跳过
+2025-10-17 15:23:10 - WARNING - Epoch 1, Step 73: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 74: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 75: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 76: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 77: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 78: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 79: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 80: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 81: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 82: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 83: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 84: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 85: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 86: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 87: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 88: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 89: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 90: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 91: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 92: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 93: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 94: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 95: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 96: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 97: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 98: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 99: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 100: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 101: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 102: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 103: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 104: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 105: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 106: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 107: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 108: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 109: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 110: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 111: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 112: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 113: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 114: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 115: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 116: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 117: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 118: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 119: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 120: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 121: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 122: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 123: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 124: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 125: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 126: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 127: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 128: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 129: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 130: 输入数据范围异常，跳过
+2025-10-17 15:23:11 - WARNING - Epoch 1, Step 131: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 132: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 133: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 134: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 135: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 136: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 137: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 138: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 139: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 140: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 141: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 142: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 143: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 144: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 145: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 146: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 147: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 148: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 149: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 150: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 151: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 152: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 153: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 154: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 155: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 156: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 157: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 158: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 159: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 160: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 161: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 162: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 163: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 164: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 165: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 166: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 167: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 168: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 169: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 170: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 171: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 172: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 173: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 174: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 175: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 176: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 177: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 178: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 179: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 180: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 181: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 182: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 183: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 184: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 185: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 186: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 187: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 188: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 189: 输入数据范围异常，跳过
+2025-10-17 15:23:12 - WARNING - Epoch 1, Step 190: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 191: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 192: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 193: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 194: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 195: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 196: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 197: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 198: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 199: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 200: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 201: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 202: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 203: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 204: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 205: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 206: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 207: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 208: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 209: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 210: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 211: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 212: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 213: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 214: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 215: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 216: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 217: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 218: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 219: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 220: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 221: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 222: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 223: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 224: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 225: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 226: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 227: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 228: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 229: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 230: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 231: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 232: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 233: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 234: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 235: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 236: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 237: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 238: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 239: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 240: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 241: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 242: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 243: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 244: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 245: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 246: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 247: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 248: 输入数据范围异常，跳过
+2025-10-17 15:23:13 - WARNING - Epoch 1, Step 249: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 250: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 251: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 252: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 253: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 254: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 255: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 256: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 257: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 258: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 259: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 260: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 261: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 262: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 263: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 264: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 265: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 266: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 267: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 268: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 269: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 270: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 271: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 272: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 273: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 274: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 275: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 276: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 277: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 278: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 279: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 280: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 281: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 282: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 283: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 284: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 285: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 286: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 287: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 288: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 289: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 290: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 291: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 292: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 293: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 294: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 295: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 296: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 297: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 298: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 299: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 300: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 301: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 302: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 303: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 304: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 305: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 306: 输入数据范围异常，跳过
+2025-10-17 15:23:14 - WARNING - Epoch 1, Step 307: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 308: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 309: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 310: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 311: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 312: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 313: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 314: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 315: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 316: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 317: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 318: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 319: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 320: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 321: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - Epoch 1, Step 322: 输入数据范围异常，跳过
+2025-10-17 15:23:15 - WARNING - ❌ target contains NaN/Inf! Count: 1/10
+2025-10-17 15:23:15 - WARNING - ❌ images_1 contains NaN/Inf! Count: 2/10
+2025-10-17 15:23:26 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 15:23:42 - INFO - 可训练参数数量: 1,497,655,824
+2025-10-17 15:23:42 - INFO - 总参数数量: 2,753,662,992
+2025-10-17 15:23:42 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-17 15:23:43 - WARNING - ⚠️ Large gradient detected: 5202.23
+2025-10-17 15:23:43 - WARNING - ⚠️ Large gradient detected: 4790.26
+2025-10-17 15:23:44 - WARNING - ⚠️ Large gradient detected: 4241.73
+2025-10-17 15:23:44 - WARNING - ⚠️ Large gradient detected: 4028.25
+2025-10-17 15:23:45 - WARNING - ⚠️ Large gradient detected: 3780.31
+2025-10-17 15:23:45 - WARNING - ⚠️ Large gradient detected: 3729.76
+2025-10-17 15:23:46 - WARNING - ⚠️ Large gradient detected: 3379.45
+2025-10-17 15:23:46 - WARNING - ⚠️ Large gradient detected: 3294.66
+2025-10-17 15:23:46 - WARNING - ⚠️ Large gradient detected: 3127.43
+2025-10-17 15:23:47 - WARNING - ⚠️ Large gradient detected: 2964.66
+2025-10-17 15:23:47 - WARNING - ⚠️ Large gradient detected: 2831.92
+2025-10-17 15:23:48 - WARNING - ⚠️ Large gradient detected: 2780.69
+2025-10-17 15:23:48 - WARNING - ⚠️ Large gradient detected: 2634.41
+2025-10-17 15:23:48 - WARNING - ⚠️ Large gradient detected: 2701.03
+2025-10-17 15:23:49 - WARNING - ⚠️ Large gradient detected: 2492.65
+2025-10-17 15:23:49 - WARNING - ⚠️ Large gradient detected: 2472.28
+2025-10-17 15:23:50 - WARNING - ⚠️ Large gradient detected: 2265.79
+2025-10-17 15:23:50 - WARNING - ⚠️ Large gradient detected: 2261.04
+2025-10-17 15:23:51 - WARNING - ⚠️ Large gradient detected: 2289.78
+2025-10-17 15:23:51 - WARNING - ⚠️ Large gradient detected: 2837.37
+2025-10-17 15:23:51 - WARNING - ⚠️ Large gradient detected: 2431.78
+2025-10-17 15:23:52 - WARNING - ⚠️ Large gradient detected: 2319.18
+2025-10-17 15:23:52 - WARNING - ⚠️ Large gradient detected: 2163.15
+2025-10-17 15:23:53 - WARNING - ⚠️ Large gradient detected: 2714.63
+2025-10-17 15:23:53 - WARNING - ⚠️ Large gradient detected: 1904.46
+2025-10-17 15:23:54 - WARNING - ⚠️ Large gradient detected: 2238.90
+2025-10-17 15:23:54 - WARNING - ⚠️ Large gradient detected: 2403.55
+2025-10-17 15:23:54 - WARNING - ⚠️ Large gradient detected: 2230.80
+2025-10-17 15:23:55 - WARNING - ⚠️ Large gradient detected: 2418.97
+2025-10-17 15:23:55 - WARNING - ⚠️ Large gradient detected: 2381.89
+2025-10-17 15:23:56 - WARNING - ⚠️ Large gradient detected: 2647.61
+2025-10-17 15:23:56 - WARNING - ⚠️ Large gradient detected: 2554.45
+2025-10-17 15:23:57 - WARNING - ⚠️ Large gradient detected: 2335.56
+2025-10-17 15:23:57 - WARNING - ⚠️ Large gradient detected: 2700.63
+2025-10-17 15:23:57 - WARNING - ⚠️ Large gradient detected: 2647.63
+2025-10-17 15:23:58 - WARNING - ⚠️ Large gradient detected: 2466.26
+2025-10-17 15:23:58 - WARNING - ⚠️ Large gradient detected: 2645.61
+2025-10-17 15:23:59 - WARNING - ⚠️ Large gradient detected: 2678.15
+2025-10-17 15:23:59 - WARNING - ⚠️ Large gradient detected: 2672.97
+2025-10-17 15:24:00 - WARNING - ⚠️ Large gradient detected: 2997.27
+2025-10-17 15:24:00 - WARNING - ⚠️ Large gradient detected: 2250.87
+2025-10-17 15:24:00 - WARNING - ⚠️ Large gradient detected: 2667.65
+2025-10-17 15:24:01 - WARNING - ⚠️ Large gradient detected: 2654.37
+2025-10-17 15:24:01 - WARNING - ⚠️ Large gradient detected: 2950.65
+2025-10-17 15:24:02 - WARNING - ⚠️ Large gradient detected: 2487.54
+2025-10-17 15:24:02 - WARNING - ⚠️ Large gradient detected: 2839.51
+2025-10-17 15:24:03 - WARNING - ⚠️ Large gradient detected: 2307.23
+2025-10-17 15:24:03 - WARNING - ⚠️ Large gradient detected: 2896.07
+2025-10-17 15:24:03 - WARNING - ⚠️ Large gradient detected: 2341.20
+2025-10-17 15:24:04 - WARNING - ⚠️ Large gradient detected: 3039.30
+2025-10-17 15:24:04 - WARNING - ⚠️ Large gradient detected: 2603.66
+2025-10-17 15:24:05 - WARNING - ⚠️ Large gradient detected: 2763.71
+2025-10-17 15:24:05 - WARNING - ⚠️ Large gradient detected: 2943.28
+2025-10-17 15:24:05 - WARNING - ⚠️ Large gradient detected: 2857.41
+2025-10-17 15:24:06 - WARNING - ⚠️ Large gradient detected: 2900.94
+2025-10-17 15:24:06 - WARNING - ⚠️ Large gradient detected: 2746.75
+2025-10-17 15:24:07 - WARNING - ⚠️ Large gradient detected: 2925.38
+2025-10-17 15:24:07 - WARNING - ⚠️ Large gradient detected: 3240.73
+2025-10-17 15:24:08 - WARNING - ⚠️ Large gradient detected: 3242.17
+2025-10-17 15:24:08 - WARNING - ⚠️ Large gradient detected: 3406.81
+2025-10-17 15:24:08 - WARNING - ⚠️ Large gradient detected: 2902.34
+2025-10-17 15:24:09 - WARNING - ⚠️ Large gradient detected: 2708.95
+2025-10-17 15:24:09 - WARNING - ⚠️ Large gradient detected: 2637.06
+2025-10-17 15:24:10 - WARNING - ⚠️ Large gradient detected: 2931.09
+2025-10-17 15:24:10 - WARNING - ⚠️ Large gradient detected: 2788.03
+2025-10-17 15:24:11 - WARNING - ⚠️ Large gradient detected: 2389.25
+2025-10-17 15:24:11 - WARNING - ⚠️ Large gradient detected: 3022.57
+2025-10-17 15:24:12 - WARNING - ⚠️ Large gradient detected: 2735.80
+2025-10-17 15:24:12 - WARNING - ⚠️ Large gradient detected: 2767.96
+2025-10-17 15:24:12 - WARNING - ⚠️ Large gradient detected: 3235.81
+2025-10-17 15:24:13 - WARNING - ⚠️ Large gradient detected: 3266.84
+2025-10-17 15:24:13 - WARNING - ⚠️ Large gradient detected: 2915.07
+2025-10-17 15:24:14 - WARNING - ⚠️ Large gradient detected: 3027.44
+2025-10-17 15:24:14 - WARNING - ⚠️ Large gradient detected: 3148.37
+2025-10-17 15:24:14 - WARNING - ⚠️ Large gradient detected: 2978.69
+2025-10-17 15:24:15 - WARNING - ⚠️ Large gradient detected: 3156.45
+2025-10-17 15:24:15 - WARNING - ⚠️ Large gradient detected: 2880.31
+2025-10-17 15:24:16 - WARNING - ⚠️ Large gradient detected: 2680.59
+2025-10-17 15:24:16 - WARNING - ⚠️ Large gradient detected: 2436.31
+2025-10-17 15:24:17 - WARNING - ⚠️ Large gradient detected: 2663.53
+2025-10-17 15:24:17 - WARNING - ⚠️ Large gradient detected: 2966.88
+2025-10-17 15:24:17 - WARNING - ⚠️ Large gradient detected: 3065.06
+2025-10-17 15:24:20 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 15:24:37 - INFO - 可训练参数数量: 1,497,655,824
+2025-10-17 15:24:37 - INFO - 总参数数量: 2,753,662,992
+2025-10-17 15:24:37 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-17 15:26:55 - WARNING - ❌ target contains NaN/Inf! Count: 1/10
+2025-10-17 15:26:55 - WARNING - ❌ images_1 contains NaN/Inf! Count: 2/10
+2025-10-17 15:29:59 - WARNING - ❌ target contains NaN/Inf! Count: 3/10
+2025-10-17 15:29:59 - WARNING - ❌ images_1 contains NaN/Inf! Count: 4/10
+2025-10-17 15:38:27 - WARNING - ❌ images_2 contains NaN/Inf! Count: 5/10
+2025-10-17 15:38:27 - WARNING - ❌ images_1 contains NaN/Inf! Count: 6/10
+2025-10-17 15:40:18 - WARNING - ❌ images_2 contains NaN/Inf! Count: 7/10
+2025-10-17 15:40:18 - WARNING - ❌ images_1 contains NaN/Inf! Count: 8/10
+2025-10-17 15:41:23 - WARNING - ❌ target contains NaN/Inf! Count: 9/10
+2025-10-17 15:41:23 - WARNING - ❌ images_1 contains NaN/Inf! Count: 10/10
+2025-10-17 15:41:23 - ERROR - NaN count exceeded limit! Stopping training.
+2025-10-17 15:42:06 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 15:42:22 - INFO - 可训练参数数量: 1,497,655,824
+2025-10-17 15:42:22 - INFO - 总参数数量: 2,753,662,992
+2025-10-17 15:42:22 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-17 15:45:54 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 15:46:10 - INFO - 可训练参数数量: 1,497,655,824
+2025-10-17 15:46:10 - INFO - 总参数数量: 2,753,662,992
+2025-10-17 15:46:10 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-17 18:41:03 - INFO - 💾 模型已保存到: ablation_2t/epoch_001.pt
+2025-10-17 21:28:47 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 21:29:25 - INFO - 可训练参数数量: 1,497,655,824
+2025-10-17 21:29:25 - INFO - 总参数数量: 2,753,662,992
+2025-10-17 21:29:25 - INFO - 🔁 加载最新断点: ablation_2t/epoch_001.pt
+2025-10-17 21:29:29 - INFO - ✅ 成功恢复到 epoch 1
+2025-10-17 21:29:29 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-17 21:54:32 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-17 21:54:47 - INFO - 可训练参数数量: 1,497,655,824
+2025-10-17 21:54:47 - INFO - 总参数数量: 2,753,662,992
+2025-10-17 21:54:47 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-18 00:48:31 - INFO - 💾 模型已保存到: ablation_2t/epoch_001.pt
+2025-10-18 00:53:35 - INFO -   - RMSE [  2t]: 1.582270032019
+2025-10-18 00:53:35 - INFO -   - RMSE [ 10u]: 1.680110023222
+2025-10-18 00:53:35 - INFO -   - RMSE [ 10v]: 1.706841430055
+2025-10-18 00:53:35 - INFO -   - RMSE [  tp]: 0.000376861527
+2025-10-18 00:53:35 - INFO -   - RMSE [   z]: 171.617954552903
+2025-10-18 00:53:35 - INFO -   - RMSE [   u]: 3.543556017617
+2025-10-18 00:53:35 - INFO -   - RMSE [   v]: 3.295874212010
+2025-10-18 00:53:35 - INFO -   - RMSE [   t]: 1.373417482139
+2025-10-18 00:53:35 - INFO -   - RMSE [   r]: 15.690410341991
+2025-10-18 00:53:35 - INFO -   - RMSE [sshf]: 178506.948361853429
+2025-10-18 00:53:35 - INFO -   - RMSE [slhf]: 364779.936053942482
+2025-10-18 00:53:35 - INFO - Avg Total Eval RMSE : 122448.193904
+
+2025-10-18 03:47:22 - INFO - 💾 模型已保存到: ablation_2t/epoch_002.pt
+2025-10-18 03:53:22 - INFO -   - RMSE [  2t]: 1.430419763210
+2025-10-18 03:53:22 - INFO -   - RMSE [ 10u]: 1.552553251715
+2025-10-18 03:53:22 - INFO -   - RMSE [ 10v]: 1.570970004984
+2025-10-18 03:53:22 - INFO -   - RMSE [  tp]: 0.000377300289
+2025-10-18 03:53:22 - INFO -   - RMSE [   z]: 151.631620650898
+2025-10-18 03:53:22 - INFO -   - RMSE [   u]: 3.152929644599
+2025-10-18 03:53:22 - INFO -   - RMSE [   v]: 3.009882725969
+2025-10-18 03:53:22 - INFO -   - RMSE [   t]: 1.220022868992
+2025-10-18 03:53:22 - INFO -   - RMSE [   r]: 14.860645654223
+2025-10-18 03:53:22 - INFO -   - RMSE [sshf]: 178506.911361117236
+2025-10-18 03:53:22 - INFO -   - RMSE [slhf]: 364779.853562561562
+2025-10-18 03:53:22 - INFO - Avg Total Eval RMSE : 122448.164250
+
+2025-10-18 06:46:32 - INFO - 💾 模型已保存到: ablation_2t/epoch_003.pt
+2025-10-18 06:52:29 - INFO -   - RMSE [  2t]: 1.333021777785
+2025-10-18 06:52:29 - INFO -   - RMSE [ 10u]: 1.471239863262
+2025-10-18 06:52:29 - INFO -   - RMSE [ 10v]: 1.494898552781
+2025-10-18 06:52:29 - INFO -   - RMSE [  tp]: 0.000377868691
+2025-10-18 06:52:29 - INFO -   - RMSE [   z]: 143.955395944443
+2025-10-18 06:52:29 - INFO -   - RMSE [   u]: 2.964465158974
+2025-10-18 06:52:29 - INFO -   - RMSE [   v]: 2.842509796620
+2025-10-18 06:52:29 - INFO -   - RMSE [   t]: 1.155882707401
+2025-10-18 06:52:29 - INFO -   - RMSE [   r]: 14.410271273833
+2025-10-18 06:52:29 - INFO -   - RMSE [sshf]: 178506.836745632056
+2025-10-18 06:52:29 - INFO -   - RMSE [slhf]: 364779.839957163669
+2025-10-18 06:52:29 - INFO - Avg Total Eval RMSE : 122448.149828
+
+2025-10-18 09:45:12 - INFO - 💾 模型已保存到: ablation_2t/epoch_004.pt
+2025-10-18 09:51:05 - INFO -   - RMSE [  2t]: 1.272954648706
+2025-10-18 09:51:05 - INFO -   - RMSE [ 10u]: 1.417490633708
+2025-10-18 09:51:05 - INFO -   - RMSE [ 10v]: 1.443068634465
+2025-10-18 09:51:05 - INFO -   - RMSE [  tp]: 0.000377861081
+2025-10-18 09:51:05 - INFO -   - RMSE [   z]: 114.370757450207
+2025-10-18 09:51:05 - INFO -   - RMSE [   u]: 2.829939036708
+2025-10-18 09:51:05 - INFO -   - RMSE [   v]: 2.752621294153
+2025-10-18 09:51:05 - INFO -   - RMSE [   t]: 1.097304571656
+2025-10-18 09:51:05 - INFO -   - RMSE [   r]: 14.116480776844
+2025-10-18 09:51:05 - INFO -   - RMSE [sshf]: 178506.820175779081
+2025-10-18 09:51:05 - INFO -   - RMSE [slhf]: 364779.936500778771
+2025-10-18 09:51:05 - INFO - Avg Total Eval RMSE : 122448.170937
+
+2025-10-18 12:43:57 - INFO - 💾 模型已保存到: ablation_2t/epoch_005.pt
+2025-10-18 12:49:54 - INFO -   - RMSE [  2t]: 1.219806317765
+2025-10-18 12:49:54 - INFO -   - RMSE [ 10u]: 1.376683250680
+2025-10-18 12:49:54 - INFO -   - RMSE [ 10v]: 1.402882460493
+2025-10-18 12:49:54 - INFO -   - RMSE [  tp]: 0.000377895414
+2025-10-18 12:49:54 - INFO -   - RMSE [   z]: 115.130137954007
+2025-10-18 12:49:54 - INFO -   - RMSE [   u]: 2.758565807179
+2025-10-18 12:49:54 - INFO -   - RMSE [   v]: 2.666620456571
+2025-10-18 12:49:54 - INFO -   - RMSE [   t]: 1.092193985956
+2025-10-18 12:49:54 - INFO -   - RMSE [   r]: 13.872242380891
+2025-10-18 12:49:54 - INFO -   - RMSE [sshf]: 178506.791588843218
+2025-10-18 12:49:54 - INFO -   - RMSE [slhf]: 364779.776456312044
+2025-10-18 12:49:54 - INFO - Avg Total Eval RMSE : 122448.123867
+
+2025-10-18 15:42:51 - INFO - 💾 模型已保存到: ablation_2t/epoch_006.pt
+2025-10-18 15:48:48 - INFO -   - RMSE [  2t]: 1.184600071230
+2025-10-18 15:48:48 - INFO -   - RMSE [ 10u]: 1.336696710864
+2025-10-18 15:48:48 - INFO -   - RMSE [ 10v]: 1.369336040656
+2025-10-18 15:48:48 - INFO -   - RMSE [  tp]: 0.000377491933
+2025-10-18 15:48:48 - INFO -   - RMSE [   z]: 119.992281137008
+2025-10-18 15:48:48 - INFO -   - RMSE [   u]: 2.650172995152
+2025-10-18 15:48:48 - INFO -   - RMSE [   v]: 2.590504789808
+2025-10-18 15:48:48 - INFO -   - RMSE [   t]: 1.044362589753
+2025-10-18 15:48:48 - INFO -   - RMSE [   r]: 13.648895893454
+2025-10-18 15:48:48 - INFO -   - RMSE [sshf]: 178506.766483147512
+2025-10-18 15:48:48 - INFO -   - RMSE [slhf]: 364779.788640310115
+2025-10-18 15:48:48 - INFO - Avg Total Eval RMSE : 122448.124261
+
+2025-10-18 18:41:45 - INFO - 💾 模型已保存到: ablation_2t/epoch_007.pt
+2025-10-18 18:47:38 - INFO -   - RMSE [  2t]: 1.159724750930
+2025-10-18 18:47:38 - INFO -   - RMSE [ 10u]: 1.305451648632
+2025-10-18 18:47:38 - INFO -   - RMSE [ 10v]: 1.341450510686
+2025-10-18 18:47:38 - INFO -   - RMSE [  tp]: 0.000377111486
+2025-10-18 18:47:38 - INFO -   - RMSE [   z]: 98.671611362826
+2025-10-18 18:47:38 - INFO -   - RMSE [   u]: 2.594715125984
+2025-10-18 18:47:38 - INFO -   - RMSE [   v]: 2.537236106763
+2025-10-18 18:47:38 - INFO -   - RMSE [   t]: 1.012326494971
+2025-10-18 18:47:38 - INFO -   - RMSE [   r]: 13.486545746679
+2025-10-18 18:47:38 - INFO -   - RMSE [sshf]: 178506.747546867904
+2025-10-18 18:47:38 - INFO -   - RMSE [slhf]: 364779.805870477983
+2025-10-18 18:47:38 - INFO - Avg Total Eval RMSE : 122448.124685
+
+2025-10-18 21:40:35 - INFO - 💾 模型已保存到: ablation_2t/epoch_008.pt
+2025-10-18 21:46:31 - INFO -   - RMSE [  2t]: 1.135503965588
+2025-10-18 21:46:31 - INFO -   - RMSE [ 10u]: 1.279538688870
+2025-10-18 21:46:31 - INFO -   - RMSE [ 10v]: 1.316995442308
+2025-10-18 21:46:31 - INFO -   - RMSE [  tp]: 0.000376818361
+2025-10-18 21:46:31 - INFO -   - RMSE [   z]: 103.788080388334
+2025-10-18 21:46:31 - INFO -   - RMSE [   u]: 2.535395834692
+2025-10-18 21:46:31 - INFO -   - RMSE [   v]: 2.494587728590
+2025-10-18 21:46:31 - INFO -   - RMSE [   t]: 0.992458263283
+2025-10-18 21:46:31 - INFO -   - RMSE [   r]: 13.315960256582
+2025-10-18 21:46:31 - INFO -   - RMSE [sshf]: 178506.737120843754
+2025-10-18 21:46:31 - INFO -   - RMSE [slhf]: 364779.797607855638
+2025-10-18 21:46:31 - INFO - Avg Total Eval RMSE : 122448.121448
+
+2025-10-19 00:39:29 - INFO - 💾 模型已保存到: ablation_2t/epoch_009.pt
+2025-10-19 00:45:26 - INFO -   - RMSE [  2t]: 1.111709691071
+2025-10-19 00:45:26 - INFO -   - RMSE [ 10u]: 1.256876182602
+2025-10-19 00:45:26 - INFO -   - RMSE [ 10v]: 1.298657524049
+2025-10-19 00:45:26 - INFO -   - RMSE [  tp]: 0.000376511861
+2025-10-19 00:45:26 - INFO -   - RMSE [   z]: 96.044622752792
+2025-10-19 00:45:26 - INFO -   - RMSE [   u]: 2.497417364920
+2025-10-19 00:45:26 - INFO -   - RMSE [   v]: 2.456886414750
+2025-10-19 00:45:26 - INFO -   - RMSE [   t]: 0.978302758281
+2025-10-19 00:45:26 - INFO -   - RMSE [   r]: 13.180200146693
+2025-10-19 00:45:26 - INFO -   - RMSE [sshf]: 178506.737934577453
+2025-10-19 00:45:26 - INFO -   - RMSE [slhf]: 364779.771521850489
+2025-10-19 00:45:26 - INFO - Avg Total Eval RMSE : 122448.113915
+
+2025-10-19 03:38:19 - INFO - 💾 模型已保存到: ablation_2t/epoch_010.pt
+2025-10-19 03:44:13 - INFO -   - RMSE [  2t]: 1.101321985451
+2025-10-19 03:44:13 - INFO -   - RMSE [ 10u]: 1.236709317539
+2025-10-19 03:44:13 - INFO -   - RMSE [ 10v]: 1.282690320912
+2025-10-19 03:44:13 - INFO -   - RMSE [  tp]: 0.000376263200
+2025-10-19 03:44:13 - INFO -   - RMSE [   z]: 96.670323188030
+2025-10-19 03:44:13 - INFO -   - RMSE [   u]: 2.454814587424
+2025-10-19 03:44:13 - INFO -   - RMSE [   v]: 2.423275667838
+2025-10-19 03:44:13 - INFO -   - RMSE [   t]: 0.967541985140
+2025-10-19 03:44:13 - INFO -   - RMSE [   r]: 13.027845549224
+2025-10-19 03:44:13 - INFO -   - RMSE [sshf]: 178506.745089923614
+2025-10-19 03:44:13 - INFO -   - RMSE [slhf]: 364779.883169323148
+2025-10-19 03:44:13 - INFO - Avg Total Eval RMSE : 122448.145143
+
+2025-10-19 06:37:07 - INFO - 💾 模型已保存到: ablation_2t/epoch_011.pt
+2025-10-19 06:43:00 - INFO -   - RMSE [  2t]: 1.072382571694
+2025-10-19 06:43:00 - INFO -   - RMSE [ 10u]: 1.223635341988
+2025-10-19 06:43:00 - INFO -   - RMSE [ 10v]: 1.260510059954
+2025-10-19 06:43:00 - INFO -   - RMSE [  tp]: 0.000376033554
+2025-10-19 06:43:00 - INFO -   - RMSE [   z]: 86.173156879074
+2025-10-19 06:43:00 - INFO -   - RMSE [   u]: 2.418751223829
+2025-10-19 06:43:00 - INFO -   - RMSE [   v]: 2.395607152168
+2025-10-19 06:43:00 - INFO -   - RMSE [   t]: 0.945815896380
+2025-10-19 06:43:00 - INFO -   - RMSE [   r]: 12.943120282750
+2025-10-19 06:43:00 - INFO -   - RMSE [sshf]: 178506.734282123391
+2025-10-19 06:43:00 - INFO -   - RMSE [slhf]: 364779.784499368630
+2025-10-19 06:43:00 - INFO - Avg Total Eval RMSE : 122448.116275
+
+2025-10-19 09:35:50 - INFO - 💾 模型已保存到: ablation_2t/epoch_012.pt
+2025-10-19 09:41:46 - INFO -   - RMSE [  2t]: 1.069786978979
+2025-10-19 09:41:46 - INFO -   - RMSE [ 10u]: 1.213952219843
+2025-10-19 09:41:46 - INFO -   - RMSE [ 10v]: 1.251725672219
+2025-10-19 09:41:46 - INFO -   - RMSE [  tp]: 0.000375979812
+2025-10-19 09:41:46 - INFO -   - RMSE [   z]: 85.910185099427
+2025-10-19 09:41:46 - INFO -   - RMSE [   u]: 2.397643028908
+2025-10-19 09:41:46 - INFO -   - RMSE [   v]: 2.377932614011
+2025-10-19 09:41:46 - INFO -   - RMSE [   t]: 0.938872024255
+2025-10-19 09:41:46 - INFO -   - RMSE [   r]: 12.877160941310
+2025-10-19 09:41:46 - INFO -   - RMSE [sshf]: 178506.733180089854
+2025-10-19 09:41:46 - INFO -   - RMSE [slhf]: 364779.790889900585
+2025-10-19 09:41:46 - INFO - Avg Total Eval RMSE : 122448.117843
+
+2025-10-19 12:34:37 - INFO - 💾 模型已保存到: ablation_2t/epoch_013.pt
+2025-10-19 12:40:35 - INFO -   - RMSE [  2t]: 1.063198965862
+2025-10-19 12:40:35 - INFO -   - RMSE [ 10u]: 1.206320002747
+2025-10-19 12:40:35 - INFO -   - RMSE [ 10v]: 1.243730891856
+2025-10-19 12:40:35 - INFO -   - RMSE [  tp]: 0.000375854621
+2025-10-19 12:40:35 - INFO -   - RMSE [   z]: 85.671903222950
+2025-10-19 12:40:35 - INFO -   - RMSE [   u]: 2.379527343077
+2025-10-19 12:40:35 - INFO -   - RMSE [   v]: 2.364468270606
+2025-10-19 12:40:35 - INFO -   - RMSE [   t]: 0.929688311249
+2025-10-19 12:40:35 - INFO -   - RMSE [   r]: 12.809492717455
+2025-10-19 12:40:35 - INFO -   - RMSE [sshf]: 178506.722902642592
+2025-10-19 12:40:35 - INFO -   - RMSE [slhf]: 364779.805743360717
+2025-10-19 12:40:35 - INFO - Avg Total Eval RMSE : 122448.120487
+
+2025-10-19 15:33:46 - INFO - 💾 模型已保存到: ablation_2t/epoch_014.pt
+2025-10-19 15:39:41 - INFO -   - RMSE [  2t]: 1.062230304943
+2025-10-19 15:39:41 - INFO -   - RMSE [ 10u]: 1.198710470311
+2025-10-19 15:39:41 - INFO -   - RMSE [ 10v]: 1.236649325517
+2025-10-19 15:39:41 - INFO -   - RMSE [  tp]: 0.000375771502
+2025-10-19 15:39:41 - INFO -   - RMSE [   z]: 84.550240642509
+2025-10-19 15:39:41 - INFO -   - RMSE [   u]: 2.362031812314
+2025-10-19 15:39:41 - INFO -   - RMSE [   v]: 2.350044710344
+2025-10-19 15:39:41 - INFO -   - RMSE [   t]: 0.925034880070
+2025-10-19 15:39:41 - INFO -   - RMSE [   r]: 12.757091853230
+2025-10-19 15:39:41 - INFO -   - RMSE [sshf]: 178506.726331738260
+2025-10-19 15:39:41 - INFO -   - RMSE [slhf]: 364779.791760461289
+2025-10-19 15:39:41 - INFO - Avg Total Eval RMSE : 122448.117083
+
+2025-10-19 18:33:13 - INFO - 💾 模型已保存到: ablation_2t/epoch_015.pt
+2025-10-19 18:39:09 - INFO -   - RMSE [  2t]: 1.049749261957
+2025-10-19 18:39:09 - INFO -   - RMSE [ 10u]: 1.192443009856
+2025-10-19 18:39:09 - INFO -   - RMSE [ 10v]: 1.229471395854
+2025-10-19 18:39:09 - INFO -   - RMSE [  tp]: 0.000375633890
+2025-10-19 18:39:09 - INFO -   - RMSE [   z]: 90.236084407282
+2025-10-19 18:39:09 - INFO -   - RMSE [   u]: 2.350942482522
+2025-10-19 18:39:09 - INFO -   - RMSE [   v]: 2.342921572042
+2025-10-19 18:39:09 - INFO -   - RMSE [   t]: 0.928001101748
+2025-10-19 18:39:09 - INFO -   - RMSE [   r]: 12.704942376393
+2025-10-19 18:39:09 - INFO -   - RMSE [sshf]: 178506.727543975227
+2025-10-19 18:39:09 - INFO -   - RMSE [slhf]: 364779.790011635807
+2025-10-19 18:39:09 - INFO - Avg Total Eval RMSE : 122448.117139
+
+2025-10-19 21:32:13 - INFO - 💾 模型已保存到: ablation_2t/epoch_016.pt
+2025-10-19 21:38:11 - INFO -   - RMSE [  2t]: 1.049619176950
+2025-10-19 21:38:11 - INFO -   - RMSE [ 10u]: 1.185952146339
+2025-10-19 21:38:11 - INFO -   - RMSE [ 10v]: 1.223110226822
+2025-10-19 21:38:11 - INFO -   - RMSE [  tp]: 0.000375590414
+2025-10-19 21:38:11 - INFO -   - RMSE [   z]: 84.610365360781
+2025-10-19 21:38:11 - INFO -   - RMSE [   u]: 2.335003392113
+2025-10-19 21:38:11 - INFO -   - RMSE [   v]: 2.325787644551
+2025-10-19 21:38:11 - INFO -   - RMSE [   t]: 0.916233735523
+2025-10-19 21:38:11 - INFO -   - RMSE [   r]: 12.653530465473
+2025-10-19 21:38:11 - INFO -   - RMSE [sshf]: 178506.721968865866
+2025-10-19 21:38:11 - INFO -   - RMSE [slhf]: 364779.781567967264
+2025-10-19 21:38:11 - INFO - Avg Total Eval RMSE : 122448.113748
+
+2025-10-20 00:31:57 - INFO - 💾 模型已保存到: ablation_2t/epoch_017.pt
+2025-10-20 00:37:55 - INFO -   - RMSE [  2t]: 1.042368082872
+2025-10-20 00:37:55 - INFO -   - RMSE [ 10u]: 1.179241517770
+2025-10-20 00:37:55 - INFO -   - RMSE [ 10v]: 1.216761702880
+2025-10-20 00:37:55 - INFO -   - RMSE [  tp]: 0.000375594105
+2025-10-20 00:37:55 - INFO -   - RMSE [   z]: 80.764532164439
+2025-10-20 00:37:55 - INFO -   - RMSE [   u]: 2.325127001761
+2025-10-20 00:37:55 - INFO -   - RMSE [   v]: 2.315203591984
+2025-10-20 00:37:55 - INFO -   - RMSE [   t]: 0.908973966878
+2025-10-20 00:37:55 - INFO -   - RMSE [   r]: 12.596997441454
+2025-10-20 00:37:55 - INFO -   - RMSE [sshf]: 178506.712980403827
+2025-10-20 00:37:55 - INFO -   - RMSE [slhf]: 364779.784996281611
+2025-10-20 00:37:55 - INFO - Avg Total Eval RMSE : 122448.113248
+
+2025-10-20 00:39:23 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-20 00:40:00 - INFO - 可训练参数数量: 1,457,958,416
+2025-10-20 00:40:00 - INFO - 总参数数量: 2,713,965,584
+2025-10-20 00:40:00 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-20 00:40:58 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-20 00:41:13 - INFO - 可训练参数数量: 1,457,958,416
+2025-10-20 00:41:13 - INFO - 总参数数量: 2,713,965,584
+2025-10-20 00:41:13 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-20 00:42:48 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-20 00:43:04 - INFO - 可训练参数数量: 1,458,023,984
+2025-10-20 00:43:04 - INFO - 总参数数量: 2,714,031,152
+2025-10-20 00:43:04 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-20 03:30:26 - INFO - 💾 模型已保存到: ablation_2t/epoch_001.pt
+2025-10-20 13:22:34 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-20 13:23:13 - INFO - 可训练参数数量: 1,458,023,984
+2025-10-20 13:23:13 - INFO - 总参数数量: 2,714,031,152
+2025-10-20 13:23:13 - INFO - 🔁 加载最新断点: ablation_2t/epoch_001.pt
+2025-10-20 13:23:17 - INFO - ✅ 成功恢复到 epoch 1
+2025-10-20 13:23:17 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-20 13:23:35 - INFO - 🚀 开始训练 - 全面优化版本（显存优化 + NaN防护）
+2025-10-20 13:23:51 - INFO - 可训练参数数量: 1,458,023,984
+2025-10-20 13:23:51 - INFO - 总参数数量: 2,714,031,152
+2025-10-20 13:23:51 - INFO - 训练配置: batch_size=2, accumulation_steps=1, effective_batch_size=2
+2025-10-20 16:09:57 - INFO - 💾 模型已保存到: ablation_2t/epoch_001.pt
+2025-10-20 16:14:55 - INFO -   - RMSE [  2t]: 1.577290834493
+2025-10-20 16:14:55 - INFO -   - RMSE [ 10u]: 1.189544555398
+2025-10-20 16:14:55 - INFO -   - RMSE [ 10v]: 1.230753836652
+2025-10-20 16:14:55 - INFO -   - RMSE [  tp]: 0.000375362828
+2025-10-20 16:14:55 - INFO -   - RMSE [   z]: 113.534462593838
+2025-10-20 16:14:55 - INFO -   - RMSE [   u]: 2.351147180480
+2025-10-20 16:14:55 - INFO -   - RMSE [   v]: 2.283888143571
+2025-10-20 16:14:55 - INFO -   - RMSE [   t]: 1.000297222453
+2025-10-20 16:14:55 - INFO -   - RMSE [   r]: 12.690078422372
+2025-10-20 16:14:55 - INFO -   - RMSE [sshf]: 90792.942867486097
+2025-10-20 16:14:55 - INFO -   - RMSE [slhf]: 94750.521427665022
+2025-10-20 16:14:55 - INFO - Avg Total Eval RMSE : 39567.012033
+
+2025-10-20 19:00:31 - INFO - 💾 模型已保存到: ablation_2t/epoch_002.pt
+2025-10-20 19:06:21 - INFO -   - RMSE [  2t]: 1.108351257664
+2025-10-20 19:06:21 - INFO -   - RMSE [ 10u]: 1.095305437104
+2025-10-20 19:06:21 - INFO -   - RMSE [ 10v]: 1.133977506581
+2025-10-20 19:06:21 - INFO -   - RMSE [  tp]: 0.000373900509
+2025-10-20 19:06:21 - INFO -   - RMSE [   z]: 94.709919373437
+2025-10-20 19:06:21 - INFO -   - RMSE [   u]: 2.147704918564
+2025-10-20 19:06:21 - INFO -   - RMSE [   v]: 2.123353175862
+2025-10-20 19:06:21 - INFO -   - RMSE [   t]: 0.882613368770
+2025-10-20 19:06:21 - INFO -   - RMSE [   r]: 11.928875773949
+2025-10-20 19:06:21 - INFO -   - RMSE [sshf]: 59932.875665367596
+2025-10-20 19:06:21 - INFO -   - RMSE [slhf]: 74225.653959018178
+2025-10-20 19:06:21 - INFO - Avg Total Eval RMSE : 28764.571670
+
+2025-10-20 21:52:04 - INFO - 💾 模型已保存到: ablation_2t/epoch_003.pt
+2025-10-20 21:57:55 - INFO -   - RMSE [  2t]: 1.012631576084
+2025-10-20 21:57:55 - INFO -   - RMSE [ 10u]: 1.051542713538
+2025-10-20 21:57:55 - INFO -   - RMSE [ 10v]: 1.090630374740
+2025-10-20 21:57:55 - INFO -   - RMSE [  tp]: 0.000371287304
+2025-10-20 21:57:55 - INFO -   - RMSE [   z]: 85.738494953324
+2025-10-20 21:57:55 - INFO -   - RMSE [   u]: 2.065279757723
+2025-10-20 21:57:55 - INFO -   - RMSE [   v]: 2.053081067582
+2025-10-20 21:57:55 - INFO -   - RMSE [   t]: 0.844514070119
+2025-10-20 21:57:55 - INFO -   - RMSE [   r]: 11.553007975662
+2025-10-20 21:57:55 - INFO -   - RMSE [sshf]: 52655.265378246040
+2025-10-20 21:57:55 - INFO -   - RMSE [slhf]: 68563.077140806068
+2025-10-20 21:57:55 - INFO - Avg Total Eval RMSE : 26065.442145
+
+2025-10-21 00:43:45 - INFO - 💾 模型已保存到: ablation_2t/epoch_004.pt
+2025-10-21 00:49:33 - INFO -   - RMSE [  2t]: 0.968895730843
+2025-10-21 00:49:33 - INFO -   - RMSE [ 10u]: 1.026653269186
+2025-10-21 00:49:33 - INFO -   - RMSE [ 10v]: 1.063959201184
+2025-10-21 00:49:33 - INFO -   - RMSE [  tp]: 0.000369671775
+2025-10-21 00:49:33 - INFO -   - RMSE [   z]: 83.174198658056
+2025-10-21 00:49:33 - INFO -   - RMSE [   u]: 2.014571961385
+2025-10-21 00:49:33 - INFO -   - RMSE [   v]: 2.007511616737
+2025-10-21 00:49:33 - INFO -   - RMSE [   t]: 0.823270216221
+2025-10-21 00:49:33 - INFO -   - RMSE [   r]: 11.275477830084
+2025-10-21 00:49:33 - INFO -   - RMSE [sshf]: 50013.771097654462
+2025-10-21 00:49:33 - INFO -   - RMSE [slhf]: 66305.645689094104
+2025-10-21 00:49:33 - INFO - Avg Total Eval RMSE : 25041.461994
+
+2025-10-21 03:35:27 - INFO - 💾 模型已保存到: ablation_2t/epoch_005.pt
+2025-10-21 03:41:16 - INFO -   - RMSE [  2t]: 0.940267322636
+2025-10-21 03:41:16 - INFO -   - RMSE [ 10u]: 1.006912788510
+2025-10-21 03:41:16 - INFO -   - RMSE [ 10v]: 1.047858443559
+2025-10-21 03:41:16 - INFO -   - RMSE [  tp]: 0.000367537608
+2025-10-21 03:41:16 - INFO -   - RMSE [   z]: 79.386677818680
+2025-10-21 03:41:16 - INFO -   - RMSE [   u]: 1.968032697330
+2025-10-21 03:41:16 - INFO -   - RMSE [   v]: 1.968503322767
+2025-10-21 03:41:16 - INFO -   - RMSE [   t]: 0.794648172182
+2025-10-21 03:41:16 - INFO -   - RMSE [   r]: 11.108537665397
+2025-10-21 03:41:16 - INFO -   - RMSE [sshf]: 48515.741489611311
+2025-10-21 03:41:16 - INFO -   - RMSE [slhf]: 64809.795534153098
+2025-10-21 03:41:16 - INFO - Avg Total Eval RMSE : 24409.560732
+
+2025-10-21 06:27:05 - INFO - 💾 模型已保存到: ablation_2t/epoch_006.pt
+2025-10-21 06:32:53 - INFO -   - RMSE [  2t]: 0.918381392213
+2025-10-21 06:32:53 - INFO -   - RMSE [ 10u]: 0.995231246957
+2025-10-21 06:32:53 - INFO -   - RMSE [ 10v]: 1.031575879782
+2025-10-21 06:32:53 - INFO -   - RMSE [  tp]: 0.000367043625
+2025-10-21 06:32:53 - INFO -   - RMSE [   z]: 76.956676262843
+2025-10-21 06:32:53 - INFO -   - RMSE [   u]: 1.947726585587
+2025-10-21 06:32:53 - INFO -   - RMSE [   v]: 1.943957827170
+2025-10-21 06:32:53 - INFO -   - RMSE [   t]: 0.791438693573
+2025-10-21 06:32:53 - INFO -   - RMSE [   r]: 11.009807324543
+2025-10-21 06:32:53 - INFO -   - RMSE [sshf]: 47735.502119682176
+2025-10-21 06:32:53 - INFO -   - RMSE [slhf]: 63689.845023641770
+2025-10-21 06:32:53 - INFO - Avg Total Eval RMSE : 23998.258604
+
+2025-10-21 09:18:38 - INFO - 💾 模型已保存到: ablation_2t/epoch_007.pt
+2025-10-21 09:24:25 - INFO -   - RMSE [  2t]: 0.900174978270
+2025-10-21 09:24:25 - INFO -   - RMSE [ 10u]: 0.982944745740
+2025-10-21 09:24:25 - INFO -   - RMSE [ 10v]: 1.019469201539
+2025-10-21 09:24:25 - INFO -   - RMSE [  tp]: 0.000365873482
+2025-10-21 09:24:25 - INFO -   - RMSE [   z]: 75.189702561753
+2025-10-21 09:24:25 - INFO -   - RMSE [   u]: 1.929109738542
+2025-10-21 09:24:25 - INFO -   - RMSE [   v]: 1.926420971005
+2025-10-21 09:24:25 - INFO -   - RMSE [   t]: 0.777733144211
+2025-10-21 09:24:25 - INFO -   - RMSE [   r]: 10.886299156993
+2025-10-21 09:24:25 - INFO -   - RMSE [sshf]: 46854.809777683615
+2025-10-21 09:24:25 - INFO -   - RMSE [slhf]: 62862.433628859057
+2025-10-21 09:24:25 - INFO - Avg Total Eval RMSE : 23639.459584
+
+2025-10-21 12:10:20 - INFO - 💾 模型已保存到: ablation_2t/epoch_008.pt
+2025-10-21 12:16:09 - INFO -   - RMSE [  2t]: 0.897831369684
+2025-10-21 12:16:09 - INFO -   - RMSE [ 10u]: 0.972778107364
+2025-10-21 12:16:09 - INFO -   - RMSE [ 10v]: 1.009651358817
+2025-10-21 12:16:09 - INFO -   - RMSE [  tp]: 0.000365812810
+2025-10-21 12:16:09 - INFO -   - RMSE [   z]: 71.558125308093
+2025-10-21 12:16:09 - INFO -   - RMSE [   u]: 1.914426870797
+2025-10-21 12:16:09 - INFO -   - RMSE [   v]: 1.911356447593
+2025-10-21 12:16:09 - INFO -   - RMSE [   t]: 0.767682682617
+2025-10-21 12:16:09 - INFO -   - RMSE [   r]: 10.802076280966
+2025-10-21 12:16:09 - INFO -   - RMSE [sshf]: 46443.498539235603
+2025-10-21 12:16:09 - INFO -   - RMSE [slhf]: 62342.028736262677
+2025-10-21 12:16:09 - INFO - Avg Total Eval RMSE : 23439.539926
+
+2025-10-21 15:02:04 - INFO - 💾 模型已保存到: ablation_2t/epoch_009.pt
+2025-10-21 15:07:54 - INFO -   - RMSE [  2t]: 0.888008871465
+2025-10-21 15:07:54 - INFO -   - RMSE [ 10u]: 0.966569884783
+2025-10-21 15:07:54 - INFO -   - RMSE [ 10v]: 1.002664029654
+2025-10-21 15:07:54 - INFO -   - RMSE [  tp]: 0.000364308057
+2025-10-21 15:07:54 - INFO -   - RMSE [   z]: 71.407374470256
+2025-10-21 15:07:54 - INFO -   - RMSE [   u]: 1.896506538249
+2025-10-21 15:07:54 - INFO -   - RMSE [   v]: 1.894938959094
+2025-10-21 15:07:54 - INFO -   - RMSE [   t]: 0.760953520226
+2025-10-21 15:07:54 - INFO -   - RMSE [   r]: 10.752159132691
+2025-10-21 15:07:54 - INFO -   - RMSE [sshf]: 45648.631990473878
+2025-10-21 15:07:54 - INFO -   - RMSE [slhf]: 61788.065272633052
+2025-10-21 15:07:54 - INFO - Avg Total Eval RMSE : 23162.602770
+
+2025-10-21 17:53:54 - INFO - 💾 模型已保存到: ablation_2t/epoch_010.pt
+2025-10-21 17:59:44 - INFO -   - RMSE [  2t]: 0.872961667625
+2025-10-21 17:59:44 - INFO -   - RMSE [ 10u]: 0.960187600610
+2025-10-21 17:59:44 - INFO -   - RMSE [ 10v]: 0.995338286428
+2025-10-21 17:59:44 - INFO -   - RMSE [  tp]: 0.000363915326
+2025-10-21 17:59:44 - INFO -   - RMSE [   z]: 75.725948289838
+2025-10-21 17:59:44 - INFO -   - RMSE [   u]: 1.879862746014
+2025-10-21 17:59:44 - INFO -   - RMSE [   v]: 1.884282379658
+2025-10-21 17:59:44 - INFO -   - RMSE [   t]: 0.759192328675
+2025-10-21 17:59:44 - INFO -   - RMSE [   r]: 10.689041997178
+2025-10-21 17:59:44 - INFO -   - RMSE [sshf]: 44950.898407902037
+2025-10-21 17:59:44 - INFO -   - RMSE [slhf]: 61331.242219116721
+2025-10-21 17:59:44 - INFO - Avg Total Eval RMSE : 22926.979738
+
+2025-10-21 20:45:32 - INFO - 💾 模型已保存到: ablation_2t/epoch_011.pt
+2025-10-21 20:51:21 - INFO -   - RMSE [  2t]: 0.838868350319
+2025-10-21 20:51:21 - INFO -   - RMSE [ 10u]: 0.942462975770
+2025-10-21 20:51:21 - INFO -   - RMSE [ 10v]: 0.976857886212
+2025-10-21 20:51:21 - INFO -   - RMSE [  tp]: 0.000363527556
+2025-10-21 20:51:21 - INFO -   - RMSE [   z]: 61.200935690346
+2025-10-21 20:51:21 - INFO -   - RMSE [   u]: 1.847760885525
+2025-10-21 20:51:21 - INFO -   - RMSE [   v]: 1.858755535773
+2025-10-21 20:51:21 - INFO -   - RMSE [   t]: 0.735502103604
+2025-10-21 20:51:21 - INFO -   - RMSE [   r]: 10.562983798046
+2025-10-21 20:51:21 - INFO -   - RMSE [sshf]: 43639.235304068316
+2025-10-21 20:51:21 - INFO -   - RMSE [slhf]: 60150.568997278802
+2025-10-21 20:51:21 - INFO - Avg Total Eval RMSE : 22406.325559
+
+2025-10-21 23:37:06 - INFO - 💾 模型已保存到: ablation_2t/epoch_012.pt
+2025-10-21 23:42:57 - INFO -   - RMSE [  2t]: 0.831521805105
+2025-10-21 23:42:57 - INFO -   - RMSE [ 10u]: 0.938571490967
+2025-10-21 23:42:57 - INFO -   - RMSE [ 10v]: 0.972525859871
+2025-10-21 23:42:57 - INFO -   - RMSE [  tp]: 0.000363435107
+2025-10-21 23:42:57 - INFO -   - RMSE [   z]: 59.444103837203
+2025-10-21 23:42:57 - INFO -   - RMSE [   u]: 1.841299962396
+2025-10-21 23:42:57 - INFO -   - RMSE [   v]: 1.849709473945
+2025-10-21 23:42:57 - INFO -   - RMSE [   t]: 0.732370118199
+2025-10-21 23:42:57 - INFO -   - RMSE [   r]: 10.533402996947
+2025-10-21 23:42:57 - INFO -   - RMSE [sshf]: 43439.857131448836
+2025-10-21 23:42:57 - INFO -   - RMSE [slhf]: 59977.030459184010
+2025-10-21 23:42:57 - INFO - Avg Total Eval RMSE : 22328.679122
+
+2025-10-22 02:28:39 - INFO - 💾 模型已保存到: ablation_2t/epoch_013.pt
+2025-10-22 02:34:30 - INFO -   - RMSE [  2t]: 0.829145825004
+2025-10-22 02:34:30 - INFO -   - RMSE [ 10u]: 0.936619796895
+2025-10-22 02:34:30 - INFO -   - RMSE [ 10v]: 0.970062708710
+2025-10-22 02:34:30 - INFO -   - RMSE [  tp]: 0.000363240621
+2025-10-22 02:34:30 - INFO -   - RMSE [   z]: 59.467264409411
+2025-10-22 02:34:30 - INFO -   - RMSE [   u]: 1.833324664315
+2025-10-22 02:34:30 - INFO -   - RMSE [   v]: 1.843623714102
+2025-10-22 02:34:30 - INFO -   - RMSE [   t]: 0.730747521633
+2025-10-22 02:34:30 - INFO -   - RMSE [   r]: 10.502315665776
+2025-10-22 02:34:30 - INFO -   - RMSE [sshf]: 43276.404155210788
+2025-10-22 02:34:30 - INFO -   - RMSE [slhf]: 59761.773878393884
+2025-10-22 02:34:30 - INFO - Avg Total Eval RMSE : 22247.207036
+
+2025-10-22 05:20:03 - INFO - 💾 模型已保存到: ablation_2t/epoch_014.pt
+2025-10-22 05:25:52 - INFO -   - RMSE [  2t]: 0.828308961111
+2025-10-22 05:25:52 - INFO -   - RMSE [ 10u]: 0.934227129826
+2025-10-22 05:25:52 - INFO -   - RMSE [ 10v]: 0.968906022960
+2025-10-22 05:25:52 - INFO -   - RMSE [  tp]: 0.000363768467
+2025-10-22 05:25:52 - INFO -   - RMSE [   z]: 62.624452552484
+2025-10-22 05:25:52 - INFO -   - RMSE [   u]: 1.833048167430
+2025-10-22 05:25:52 - INFO -   - RMSE [   v]: 1.841655821367
+2025-10-22 05:25:52 - INFO -   - RMSE [   t]: 0.729393639109
+2025-10-22 05:25:52 - INFO -   - RMSE [   r]: 10.474099630372
+2025-10-22 05:25:52 - INFO -   - RMSE [sshf]: 43138.227180365640
+2025-10-22 05:25:52 - INFO -   - RMSE [slhf]: 59618.940540979231
+2025-10-22 05:25:52 - INFO - Avg Total Eval RMSE : 22187.893416
+
+2025-10-22 08:11:23 - INFO - 💾 模型已保存到: ablation_2t/epoch_015.pt
+2025-10-22 08:17:10 - INFO -   - RMSE [  2t]: 0.824858682232
+2025-10-22 08:17:10 - INFO -   - RMSE [ 10u]: 0.932326252917
+2025-10-22 08:17:10 - INFO -   - RMSE [ 10v]: 0.964379816383
+2025-10-22 08:17:10 - INFO -   - RMSE [  tp]: 0.000363189007
+2025-10-22 08:17:10 - INFO -   - RMSE [   z]: 61.800353025167
+2025-10-22 08:17:10 - INFO -   - RMSE [   u]: 1.828231855199
+2025-10-22 08:17:10 - INFO -   - RMSE [   v]: 1.838804320519
+2025-10-22 08:17:10 - INFO -   - RMSE [   t]: 0.726356673476
+2025-10-22 08:17:10 - INFO -   - RMSE [   r]: 10.430049720159
+2025-10-22 08:17:10 - INFO -   - RMSE [sshf]: 43088.649541128761
+2025-10-22 08:17:10 - INFO -   - RMSE [slhf]: 59504.017176823952
+2025-10-22 08:17:10 - INFO - Avg Total Eval RMSE : 22151.059316
+
+2025-10-22 11:02:46 - INFO - 💾 模型已保存到: ablation_2t/epoch_016.pt
+2025-10-22 11:08:36 - INFO -   - RMSE [  2t]: 0.826171265648
+2025-10-22 11:08:36 - INFO -   - RMSE [ 10u]: 0.929481326438
+2025-10-22 11:08:36 - INFO -   - RMSE [ 10v]: 0.964689586255
+2025-10-22 11:08:36 - INFO -   - RMSE [  tp]: 0.000361896483
+2025-10-22 11:08:36 - INFO -   - RMSE [   z]: 61.595500484821
+2025-10-22 11:08:36 - INFO -   - RMSE [   u]: 1.819824846753
+2025-10-22 11:08:36 - INFO -   - RMSE [   v]: 1.838377301747
+2025-10-22 11:08:36 - INFO -   - RMSE [   t]: 0.728664202348
+2025-10-22 11:08:36 - INFO -   - RMSE [   r]: 10.410049786390
+2025-10-22 11:08:36 - INFO -   - RMSE [sshf]: 42929.291131716796
+2025-10-22 11:08:36 - INFO -   - RMSE [slhf]: 59361.488848004825
+2025-10-22 11:08:36 - INFO - Avg Total Eval RMSE : 22088.076396
+
+2025-10-22 13:54:16 - INFO - 💾 模型已保存到: ablation_2t/epoch_017.pt
+2025-10-22 14:00:04 - INFO -   - RMSE [  2t]: 0.819744328256
+2025-10-22 14:00:04 - INFO -   - RMSE [ 10u]: 0.926787581359
+2025-10-22 14:00:04 - INFO -   - RMSE [ 10v]: 0.959791797719
+2025-10-22 14:00:04 - INFO -   - RMSE [  tp]: 0.000361842258
+2025-10-22 14:00:04 - INFO -   - RMSE [   z]: 59.058322129081
+2025-10-22 14:00:04 - INFO -   - RMSE [   u]: 1.814802347421
+2025-10-22 14:00:04 - INFO -   - RMSE [   v]: 1.828622150437
+2025-10-22 14:00:04 - INFO -   - RMSE [   t]: 0.720032854460
+2025-10-22 14:00:04 - INFO -   - RMSE [   r]: 10.377403973098
+2025-10-22 14:00:04 - INFO -   - RMSE [sshf]: 42885.256018723070
+2025-10-22 14:00:04 - INFO -   - RMSE [slhf]: 59247.193380614503
+2025-10-22 14:00:04 - INFO - Avg Total Eval RMSE : 22052.373017
+
+2025-10-22 16:46:08 - INFO - 💾 模型已保存到: ablation_2t/epoch_018.pt
+2025-10-22 16:52:00 - INFO -   - RMSE [  2t]: 0.817386686590
+2025-10-22 16:52:00 - INFO -   - RMSE [ 10u]: 0.925684609128
+2025-10-22 16:52:00 - INFO -   - RMSE [ 10v]: 0.960396294627
+2025-10-22 16:52:00 - INFO -   - RMSE [  tp]: 0.000360967269
+2025-10-22 16:52:00 - INFO -   - RMSE [   z]: 58.546083989497
+2025-10-22 16:52:00 - INFO -   - RMSE [   u]: 1.820498144162
+2025-10-22 16:52:00 - INFO -   - RMSE [   v]: 1.829441791824
+2025-10-22 16:52:00 - INFO -   - RMSE [   t]: 0.721709037468
+2025-10-22 16:52:00 - INFO -   - RMSE [   r]: 10.364239210683
+2025-10-22 16:52:00 - INFO -   - RMSE [sshf]: 42728.728564478472
+2025-10-22 16:52:00 - INFO -   - RMSE [slhf]: 59066.178597361191
+2025-10-22 16:52:00 - INFO - Avg Total Eval RMSE : 21980.489786
+
+2025-10-22 19:37:43 - INFO - 💾 模型已保存到: ablation_2t/epoch_019.pt
+2025-10-22 19:43:32 - INFO -   - RMSE [  2t]: 0.813678349016
+2025-10-22 19:43:32 - INFO -   - RMSE [ 10u]: 0.922292543449
+2025-10-22 19:43:32 - INFO -   - RMSE [ 10v]: 0.956606599914
+2025-10-22 19:43:32 - INFO -   - RMSE [  tp]: 0.000360337618
+2025-10-22 19:43:32 - INFO -   - RMSE [   z]: 59.565781394718
+2025-10-22 19:43:32 - INFO -   - RMSE [   u]: 1.810935958880
+2025-10-22 19:43:32 - INFO -   - RMSE [   v]: 1.823597609917
+2025-10-22 19:43:32 - INFO -   - RMSE [   t]: 0.719780490995
+2025-10-22 19:43:32 - INFO -   - RMSE [   r]: 10.356882749840
+2025-10-22 19:43:32 - INFO -   - RMSE [sshf]: 42659.867267711925
+2025-10-22 19:43:32 - INFO -   - RMSE [slhf]: 58971.836900386879
+2025-10-22 19:43:32 - INFO - Avg Total Eval RMSE : 21945.273849
+
+2025-10-22 22:29:16 - INFO - 💾 模型已保存到: ablation_2t/epoch_020.pt
+2025-10-22 22:35:05 - INFO -   - RMSE [  2t]: 0.809593836545
+2025-10-22 22:35:05 - INFO -   - RMSE [ 10u]: 0.921325427355
+2025-10-22 22:35:05 - INFO -   - RMSE [ 10v]: 0.954245204687
+2025-10-22 22:35:05 - INFO -   - RMSE [  tp]: 0.000360223120
+2025-10-22 22:35:05 - INFO -   - RMSE [   z]: 61.143361763546
+2025-10-22 22:35:05 - INFO -   - RMSE [   u]: 1.805993027510
+2025-10-22 22:35:05 - INFO -   - RMSE [   v]: 1.818340218735
+2025-10-22 22:35:05 - INFO -   - RMSE [   t]: 0.716689692309
+2025-10-22 22:35:05 - INFO -   - RMSE [   r]: 10.346800860659
+2025-10-22 22:35:05 - INFO -   - RMSE [sshf]: 42581.797596068223
+2025-10-22 22:35:05 - INFO -   - RMSE [slhf]: 58823.740504545785
+2025-10-22 22:35:05 - INFO - Avg Total Eval RMSE : 21895.300011
+
+2025-10-22 22:35:05 - INFO - 🎉 训练完成!

@@ -349,9 +349,9 @@ class Aurora(torch.nn.Module):
                 },
             )
 
-        pred1 = pred.unnormalise(surf_stats=self.surf_stats)
+        unnormalise_pred = pred.unnormalise(surf_stats=self.surf_stats)
 
-        return pred,pred1
+        return pred,unnormalise_pred
 
     def batch_transform_hook(self, batch: Batch) -> Batch:
         """Transform the batch right after receiving it and before normalisation.

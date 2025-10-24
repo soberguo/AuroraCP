@@ -9,9 +9,9 @@ import torch
 
 
 class WeatherBench128(Dataset):
-    def __init__(self, data_folder,n=6,train=True):  # 添加保存路径参数
+    def __init__(self, data_folder,n=6,train=True,roll_step=0):  # 添加保存路径参数
         self.n = n  # 时间步间隔
-
+        self.roll_step=roll_step
         self.data_folder = data_folder
 
         self.level=['level_00','level_01','level_02','level_03',
@@ -21,7 +21,7 @@ class WeatherBench128(Dataset):
         if train:
             self.year=[str(y) for y in range(1979, 2015)]
         else:
-            self.year=[str(y) for y in range(2018, 2019)]
+            self.year=[str(y) for y in range(2017, 2019)]
         self.surf_var=['2t', '10u', '10v', 'msl']
         self.atmos_var=['z', 'u', 'v', 't', 'q']
         # self.sshf = xr.open_mfdataset('/sharefiles4/zhaodan/1.40625/rigrid_heat_fllux/*.nc', combine='by_coords')
@@ -43,11 +43,11 @@ class WeatherBench128(Dataset):
     def __len__(self):
         return len(self.file_list) - 2 
 
-    def __getitem__(self, index):
+    def __getitem__(self, index):#输入t-1和t，输出t+1
         target={}
         idx1 = index
         idx2 = index + 1
-        idx_tgt = index + 2 
+        idx_tgt = index + 2 +(self.roll_step-1)
 
         file_path1 = self.file_list[idx1]
         file_path2 = self.file_list[idx2]
@@ -58,8 +58,10 @@ class WeatherBench128(Dataset):
 
 
         target['tgt'] = torch.load(os.path.join(self.data_folder, target_path))
-
+        #训练用到的t时刻文件名
         target['filename']= file_path2.split('/')[-1].split(".")[0]
+        #roll_step用到的t+1时刻文件名
+        target['tgt_filename']= target_path.split('/')[-1].split(".")[0]
 
         return (sample_x1, sample_x2), target
     

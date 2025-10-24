@@ -204,12 +204,12 @@ class Perceiver3DDecoder(nn.Module):
             C=patch_res[0],
             H=patch_res[1],
             W=patch_res[2],
-        )
+        )#[2, 8192, 1024]-[2, 2048, 4, 1024]
 
         # Decode surface vars. Run the head for every surface-level variable.
-        x_surf = torch.stack([self.surf_heads[name](x[..., :1, :]) for name in surf_vars], dim=-1)
-        x_surf = x_surf.reshape(*x_surf.shape[:3], -1)  # (B, L, 1, V_S*p*p)
-        surf_preds = unpatchify(x_surf, len(surf_vars), H, W, self.patch_size)
+        x_surf = torch.stack([self.surf_heads[name](x[..., :1, :]) for name in surf_vars], dim=-1)#[2, 2048, 1, 16,4]
+        x_surf = x_surf.reshape(*x_surf.shape[:3], -1)  # (B, L, 1, V_S*p*p) [2, 2048, 1, 64]
+        surf_preds = unpatchify(x_surf, len(surf_vars), H, W, self.patch_size)#[2, 4, 1, 128, 256]
         surf_preds = surf_preds.squeeze(2)  # (B, V_S, H, W)
 
         # Embed the atmospheric levels.

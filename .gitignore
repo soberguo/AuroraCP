@@ -3,6 +3,7 @@ weather_tensors/
 visual/
 old_aurora/
 finetune_aurora_3input_smal/
+finetune_aurora_2input_smal/
 ckpt/
 checkpoints/
 __pycache__/
@@ -14,3 +15,7 @@ download_era5.py
 lijinghao.py
 nc_file_read.py
 triton_model.py
+in71_out71/
+original/
+ablation_new_var/
+sota_ckpt/

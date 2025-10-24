@@ -122,16 +122,9 @@ class WindowAttention(nn.Module):
         self.proj = nn.Linear(dim, dim)
         self.proj_drop = nn.Dropout(proj_drop)
         self.r=lora_r
-        # self.hypernetwork_fc1 = nn.Linear(1024, dim*lora_r)
-        # self.hypernetwork_fc2 = nn.Linear(1024, dim*lora_r)
-        # self.hypernetwork_proj=nn.Linear(dim, dim*3)
-        # self.hypernetwork_ln=nn.LayerNorm(dim*3)
 
         if use_lora:
-            # self.hypernetwork_fc = nn.Linear(144*144, 512+1)
-            
-            # self.hypernetwork_proj=nn.Linear(dim, dim*3)
-            # self.hypernetwork_ln=nn.LayerNorm(dim*3)
+
             self.lora_proj = LoRARollout(
                 dim, dim, lora_r, lora_alpha, lora_dropout, lora_steps, lora_mode
             )
@@ -159,27 +152,6 @@ class WindowAttention(nn.Module):
         Returns:
             torch.Tensor: Output of shape `(nW*B, N, C)`.
         """
-        # if hyp_x!=None:
-        #     w=self.hypernetwork_fc(rearrange(hyp_x,'B C D -> (C B) D').T).float()
-        #     w1=w[...,:-1]
-        #     b1=w[...,-1]
-        #     x1=rearrange(x,'B C D -> (C B) D')
-        #     x2 = torch.matmul(x1,w1)+ b1.unsqueeze(0)
-        #     x3=self.hypernetwork_proj(x2).float()
-        #     x3=rearrange(x3,'(C B) D -> B C D',B=144)
-        #     qkv = self.qkv(x) + self.lora_qkv(x, hyp_x,rollout_step)+self.hypernetwork_ln(x3)
-        # else:
-        # if hyp_x!=None:
-        #     pooled = hyp_x.mean(dim=(0,1)) 
-        #     theta1 = self.hypernetwork_fc1(pooled) 
-        #     theta2 = self.hypernetwork_fc2(pooled) 
-        #     with torch.no_grad():
-        #         Aa = theta1.view(1, self.dim, self.r)
-        #         Bb = theta2.view(1, self.r, self.dim)
-        #     x2 = torch.einsum("bij,jr,ro->bio", x, Aa.squeeze(0), Bb.squeeze(0))
-        #     x3=self.hypernetwork_proj(x2).float()
-        #     qkv = self.qkv(x) + self.lora_qkv(x, hyp_x,rollout_step)+self.hypernetwork_ln(x3)
-        # else:
         qkv = self.qkv(x) + self.lora_qkv(x, hyp_x,rollout_step)
         qkv = rearrange(qkv, "B N (qkv H D) -> qkv B H N D", H=self.num_heads, qkv=3)
         q, k, v = qkv[0], qkv[1], qkv[2]
@@ -466,8 +438,8 @@ class Swin3DTransformerBlock(nn.Module):
             act_layer=act_layer,
             drop=drop,
         )
-        if mode=='euc':
-            self.hypernetwork_fc=nn.Linear(1024,256)
+        
+        self.hypernetwork_fc=nn.Linear(1024,256)
     def forward(
         self,
         x: torch.Tensor,hyp_x,
@@ -517,11 +489,6 @@ class Swin3DTransformerBlock(nn.Module):
         x_windows = x_windows.view(-1, ws[0] * ws[1] * ws[2], D)  # (nW*B, ws*ws, D)
         #保证超网络参数维度一致
         if hyp_x!=None:
-            # hyp_x=self.hypernetwork_fc(hyp_x)
-            # hyp_x=hyp_x.view(B, C, H, W, D)
-            # hyp_x = pad_3d(hyp_x, pad_size)
-            # hyp_windows = window_partition_3d(hyp_x, ws)  
-            # hyp_windows = hyp_windows.view(-1, ws[0] * ws[1] * ws[2], D)
             hyp_windows=self.hypernetwork_fc(hyp_x[0][2])  
         else:
             hyp_windows=None
@@ -1086,10 +1053,10 @@ class Swin3DTransformerBackbone(nn.Module):
             x, x_unscaled = layer(x, hyp_x,c, all_enc_res[i], rollout_step=rollout_step)
             skips.append(x_unscaled)
         for i, layer in enumerate(self.decoder_layers):
-            x_hyp=None
+            hyp_x=None
             index = self.num_decoder_layers - i - 1
             x, _ = layer(
-                x,x_hyp,
+                x,hyp_x,
                 c,
                 all_enc_res[index],
                 padded_outs[index - 1],

@@ -825,5 +825,5 @@ class Swin3DTransformerBackbone(nn.Module):
         #     elif i == self.num_decoder_layers - 1:
         #         # For the last stage, we perform concatentation like in Pangu.
         #         x = torch.cat([x, skips[0]], dim=-1)
-        # return x
+
         return x,encoder_feat,decoder_feat

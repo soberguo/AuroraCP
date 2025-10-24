@@ -39,9 +39,9 @@ class LoRA(nn.Module):
         self.in_features=in_features
         self.out_features=out_features
 
-        # self.lora_dropout = nn.Dropout(dropout)
-        # self.lora_A = nn.Parameter(torch.empty((r, in_features)))
-        # self.lora_B = nn.Parameter(torch.empty((out_features, r)))
+        self.lora_dropout = nn.Dropout(dropout)
+        self.lora_A = nn.Parameter(torch.empty((r, in_features)))
+        self.lora_B = nn.Parameter(torch.empty((out_features, r)))
         self.scaling = self.lora_alpha / self.r
         self.hypernetwork_fc = nn.Linear(in_features, in_features+1)
         # self.hypernetwork_fc2 = nn.Linear(in_features, 144+1)
@@ -53,13 +53,13 @@ class LoRA(nn.Module):
         self.fc2 = nn.Linear(256, in_features*r)
         self.proj = nn.Linear(in_features, out_features)
         
-    #     self.init_weights()
+        self.init_weights()
         
-    # def init_weights(self) -> None:
-    #     """Initialise weights."""
-    #     # Initialise A the same way as the default for `nn.Linear` and set B to zero.
-    #     nn.init.kaiming_uniform_(self.lora_A, a=math.sqrt(5))
-    #     nn.init.zeros_(self.lora_B)
+    def init_weights(self) -> None:
+        """Initialise weights."""
+        # Initialise A the same way as the default for `nn.Linear` and set B to zero.
+        nn.init.kaiming_uniform_(self.lora_A, a=math.sqrt(5))
+        nn.init.zeros_(self.lora_B)
 
     def forward(self, x: torch.Tensor,hyp_x) -> torch.Tensor:
         """Compute the LoRA adaptation.
@@ -70,7 +70,8 @@ class LoRA(nn.Module):
         Returns:
             torch.Tensor: Additive correction for the output of the linear layer.
         """
-        # x1 = self.lora_dropout(x) @ self.lora_A.transpose(0, 1) @ self.lora_B.transpose(0, 1)#[720, 144, 512]->[720, 144, 1536]
+        # x = self.lora_dropout(x) @ self.lora_A.transpose(0, 1) @ self.lora_B.transpose(0, 1)#[720, 144, 512]->[720, 144, 1536]
+        # return x * self.scaling
         if hyp_x==None:
             return self.proj(x) * self.scaling
         else:
