@@ -94,7 +94,7 @@ class WindowAttention(nn.Module):
         self.proj = nn.Linear(dim, dim)
         self.proj_drop = nn.Dropout(proj_drop)
 
-        
+
 
     def forward(
         self,
@@ -102,9 +102,9 @@ class WindowAttention(nn.Module):
         mask: torch.Tensor | None = None,
         rollout_step: int = 0,
     ) -> torch.Tensor:
-        
 
-        qkv = self.qkv(x) 
+
+        qkv = self.qkv(x)
         qkv = rearrange(qkv, "B N (qkv H D) -> qkv B H N D", H=self.num_heads, qkv=3)
         q, k, v = qkv[0], qkv[1], qkv[2]
         attn_dropout = self.attn_drop if self.training else 0.0
@@ -386,7 +386,7 @@ class Swin3DTransformerBlock(nn.Module):
 
     def forward(
         self,
-        x: torch.Tensor, 
+        x: torch.Tensor,
         c: torch.Tensor,
         res: tuple[int, int, int],
         rollout_step: int,
@@ -433,7 +433,7 @@ class Swin3DTransformerBlock(nn.Module):
         x_windows = x_windows.view(-1, ws[0] * ws[1] * ws[2], D)  # (nW*B, ws*ws, D) [720, 144, 512]
 
         # W-MSA/SW-MSA. Has shape (nW*B, ws*ws, D).
-        
+
         attn_windows = self.attn(x_windows, mask=attn_mask, rollout_step=rollout_step)
 
         # Merge the windows into the original input (patch) resolution.
@@ -684,7 +684,7 @@ class Swin3DTransformerBackbone(nn.Module):
         drop_rate: float = 0.0,
         attn_drop_rate: float = 0.1,
         drop_path_rate: float = 0.1,
-        
+
     ) -> None:
         super().__init__()
 
@@ -771,10 +771,10 @@ class Swin3DTransformerBackbone(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        
+
         lead_time: timedelta,
         rollout_step: int,
-        patch_res: tuple[int, int, int], 
+        patch_res: tuple[int, int, int],
     ) -> torch.Tensor:
         """Run the backbone.
 
@@ -802,13 +802,13 @@ class Swin3DTransformerBackbone(nn.Module):
         c = self.time_mlp(lead_time_expansion(lead_times, self.embed_dim).to(dtype=x.dtype))#torch.Size([bs, 256])
 
         skips = []
-        encoder_feat=[]
-        decoder_feat=[]
+
+
         for i, layer in enumerate(self.encoder_layers):
-            encoder_feat.append(x)
+
             x, x_unscaled = layer(x, c, all_enc_res[i], rollout_step=rollout_step)
             skips.append(x_unscaled)
-            
+
         # for i, layer in enumerate(self.decoder_layers):
         #     index = self.num_decoder_layers - i - 1
         #     x, x_unscaled = layer(
@@ -826,4 +826,4 @@ class Swin3DTransformerBackbone(nn.Module):
         #         # For the last stage, we perform concatentation like in Pangu.
         #         x = torch.cat([x, skips[0]], dim=-1)
 
-        return x,encoder_feat,decoder_feat
+        return x

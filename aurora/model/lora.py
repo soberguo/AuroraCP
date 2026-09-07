@@ -43,23 +43,18 @@ class LoRA(nn.Module):
         self.lora_A = nn.Parameter(torch.empty((r, in_features)))
         self.lora_B = nn.Parameter(torch.empty((out_features, r)))
         self.scaling = self.lora_alpha / self.r
-        self.hypernetwork_fc = nn.Linear(in_features, in_features+1)
-        # self.hypernetwork_fc2 = nn.Linear(in_features, 144+1)
-        self.hypernetwork_proj=nn.Linear(in_features, out_features)
-        self.hypernetwork_ln=nn.LayerNorm(out_features)
-        # self.hypernetwork_relu=nn.ReLU(inplace=True)
-        self.pool = nn.AdaptiveAvgPool2d((1,1))  # [B,512,1,1]
-        self.fc1 = nn.Linear(256, in_features*r)
-        self.fc2 = nn.Linear(256, in_features*r)
+        self.fc_gate=nn.Linear(256, 8)
         self.proj = nn.Linear(in_features, out_features)
-        
+
         self.init_weights()
-        
+
     def init_weights(self) -> None:
         """Initialise weights."""
         # Initialise A the same way as the default for `nn.Linear` and set B to zero.
         nn.init.kaiming_uniform_(self.lora_A, a=math.sqrt(5))
         nn.init.zeros_(self.lora_B)
+        nn.init.zeros_(self.fc_gate.weight)
+        nn.init.zeros_(self.fc_gate.bias)
 
     def forward(self, x: torch.Tensor,hyp_x) -> torch.Tensor:
         """Compute the LoRA adaptation.
@@ -73,19 +68,18 @@ class LoRA(nn.Module):
         # x = self.lora_dropout(x) @ self.lora_A.transpose(0, 1) @ self.lora_B.transpose(0, 1)#[720, 144, 512]->[720, 144, 1536]
         # return x * self.scaling
         if hyp_x==None:
-            return self.proj(x) * self.scaling
-        else:
-            pooled = hyp_x.mean(dim=(0,1)) 
-            theta1 = self.fc1(pooled) 
-            theta2 = self.fc2(pooled) 
-            with torch.no_grad():
-                Aa = theta1.view(1, self.in_features, self.r)
-                Bb = theta2.view(1, self.r, self.in_features)
-            x2 = torch.einsum("bij,jr,ro->bio", x, Aa.squeeze(0), Bb.squeeze(0))
-            x3=self.hypernetwork_proj(x2).float()
-            x4=self.hypernetwork_ln(x3)
+            # 如果进行滚动微调
+            x4 = self.lora_dropout(x) @ self.lora_A.transpose(0, 1) @ self.lora_B.transpose(0, 1)#[720, 144, 512]->[720, 144, 1536]
             return x4 * self.scaling
-            
+        #     return self.proj(x) * self.scaling
+        # else:
+        #     gate = torch.sigmoid(self.fc_gate(hyp_x))
+        #     hidden = self.lora_dropout(x) @ self.lora_A.transpose(0, 1)
+        #     hidden = hidden * gate.unsqueeze(1)
+        #     out = hidden @ self.lora_B.transpose(0, 1)
+        #     return out * self.scaling
+
+
 
 
 class LoRARollout(nn.Module):
@@ -98,7 +92,7 @@ class LoRARollout(nn.Module):
         r: int = 8,
         alpha: int = 8,
         dropout: float = 0.0,
-        max_steps: int = 40,
+        max_steps: int = 10,
         mode: LoRAMode = "single",
     ):
         """Initialise.

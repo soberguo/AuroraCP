@@ -64,7 +64,7 @@ class LevelPatchEmbed(nn.Module):
 
         self.bias = nn.Parameter(torch.empty(embed_dim))
         self.norm = norm_layer(embed_dim) if norm_layer else nn.Identity()
-        
+
         self.init_weights()
 
     def init_weights(self) -> None:
@@ -127,7 +127,7 @@ class LevelPatchEmbed(nn.Module):
 
         x = self.norm(proj)
         return x
-    
+
 def unpatchify(x: torch.Tensor, V: int, H: int, W: int, P: int) -> torch.Tensor:
     """Unpatchify hidden representation.
 
@@ -174,13 +174,13 @@ class MLP(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Run the MLP."""
         return self.net(x)
-    
+
 
 
 class Small_model(torch.nn.Module):
     def __init__(
-        self,   
-        surf_stats,     
+        self,
+        surf_stats,
         window_size: tuple[int, int, int] = (2, 6, 12),
 
         encoder_depths: tuple[int, ...] = (6, 10, 8),
@@ -194,13 +194,13 @@ class Small_model(torch.nn.Module):
         # decoder_depths: tuple[int, ...] = (2, 6, 2),
         # decoder_num_heads: tuple[int, ...] = (16, 8, 4),
         # embed_dim: int = 256,
-       
+
         mlp_ratio: float = 4.0,
         drop_path: float = 0.0,
         drop_rate: float = 0.0,
         timestep: timedelta = timedelta(hours=6),
     ) -> None:
-        
+
         super().__init__()
 
         self.surf_stats = surf_stats
@@ -254,14 +254,14 @@ class Small_model(torch.nn.Module):
         batch=self.biaozhunhua(batch)
         H, W = batch.spatial_shape#128,256
         patch_res = (self.latent_levels,H // (self.patch_size*2),W // (self.patch_size*2))
-        
+
         #encoder
         x_surf = torch.stack(tuple(batch.surf_vars.values()), dim=2)#[bs,2,3,128,256]
         surf_vars = tuple(batch.surf_vars.keys())
 
         B, T,  C, H, W = x_surf.size()
         lat, lon = batch.metadata.lat, batch.metadata.lon#128,256
-        
+
         lat, lon = lat.to(dtype=torch.float32), lon.to(dtype=torch.float32)
         assert lat.shape[0] == H and lon.shape[-1] == W
 
@@ -332,15 +332,15 @@ class Small_model(torch.nn.Module):
         # surf_preds = unpatchify(x_surf, 1, H, W, self.patch_size)#[bs, 3, 1, 128, 256]
         surf_preds = surf_preds.squeeze(2) # (B, V_S, H, W)[bs, 3, 128, 256]
         surf_preds = torch.clamp(surf_preds, min=-10, max=10)
-        # y=self.head(surf_preds) 
+        # y=self.head(surf_preds)
         # y_=y.unnormalise(surf_stats=self.surf_stats)
         return surf_preds[:,0]
 
-        
 
-        
 
-        
+
+
+
 
         # Add position and scale embeddings to the 3D tensor.
         pos_encode, scale_encode = pos_scale_enc(
@@ -375,7 +375,7 @@ class Small_model(torch.nn.Module):
 
         x = self.pos_drop(x)
         return x
-        
+
 
 
 
@@ -395,7 +395,7 @@ if __name__ == "__main__":
     save_dir = "./checkpoints"
     for epoch in range(start_epoch,epochs):
         model.train()
-        total_loss = 0.0 
+        total_loss = 0.0
         train_iter = tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs}", leave=True)
         for i, (images, targets) in enumerate(train_iter):
 
@@ -407,7 +407,7 @@ if __name__ == "__main__":
                 continue  # 跳过这个 batch，防止训练崩溃
             var_2t=torch.stack([images_1[:, 0], images_2[:, 0]], dim=1)
             var_sshf = torch.stack([images_1[:, 69], images_2[:, 69]], dim=1) # [B, sshf, H, W]
-            var_slhf = torch.stack([images_1[:, 70], images_2[:, 70]], dim=1) 
+            var_slhf = torch.stack([images_1[:, 70], images_2[:, 70]], dim=1)
             time=tuple(hours_to_datetime(t['filename']) for t in targets)
             batch=Batch(
                 surf_vars={"2t": var_2t, "sshf":var_sshf, "slhf":var_slhf},
@@ -420,4 +420,3 @@ if __name__ == "__main__":
                     atmos_levels=(50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 850, 925, 1000),
                 ))
             preds=model(batch)
-            

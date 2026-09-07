@@ -1,135 +1,226 @@
+import os
+import sys
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 获取上一级目录（也就是 qwe 文件夹的路径）
+project_root = os.path.dirname(current_dir)
+# 将 qwe 目录加入到系统搜索路径中
+sys.path.append(project_root)
 import torch
 from tqdm import tqdm
 import torch.nn.functional as F
 from aurora import AuroraPretrained,AuroraSmallPretrained, Batch, Metadata,rollout
 from utils import hours_to_datetime
-from utils import static_var,mean_std_1d,hours_to_datetime,save_visualization,mean_std_2d
-from weather_dataset import WeatherBench128, custom_collate
+from utils import static_var,calculate_batch_rmse_sum,hours_to_datetime,fix_tensor,build_batch_from_tensor
+from data.weather_dataset import WeatherBench2, custom_collate
 from torch.utils.data import Dataset, DataLoader
 from model import CustomAurora
 from aurora.normalisation import locations, scales
 from args import get_args
 import os
+from datetime import timedelta
+
+def compute_rmse(loss_dict,final_pred,target,args):
+    for name in args.eval_vars:
+        if name in final_pred.surf_vars and name in args.surf_channels:
+            loss_dict[name] += calculate_batch_rmse_sum(
+                final_pred.surf_vars[name][:, 0], target[:, args.surf_channels[name]]
+            )
+        elif name in final_pred.atmos_vars and name in args.atmos_channels:
+            start, end = args.atmos_channels[name]
+            loss_dict[name] += calculate_batch_rmse_sum(final_pred.atmos_vars[name][:, 0], target[:, start:end])
+        else:
+            raise KeyError(f"评估变量 {name} 不存在于 prediction 或 channel 配置中")
+    return loss_dict
+
+
+def _log_message(logger, message):
+    if logger:
+        logger.info(message)
+    else:
+        print(message)
+
+
+def _has_invalid_tensor(*tensors):
+    return any(torch.isnan(tensor).any() or torch.isinf(tensor).any() for tensor in tensors)
+
+
+def _fix_invalid_tensors(*tensors):
+    return tuple(fix_tensor(tensor) for tensor in tensors)
+
+
+def _stack_rollout_targets(targets, device):
+    if 'rollout_tgts' not in targets[0]:
+        raise KeyError("多步 rollout 评估需要 WeatherBench2 返回 rollout_tgts")
+    return [
+        torch.stack([target['rollout_tgts'][lead_idx] for target in targets], dim=0).to(device)
+        for lead_idx in range(len(targets[0]['rollout_tgts']))
+    ]
+
+
+def _validate_lead_count(predictions, rollout_targets, args):
+    if len(predictions) != args.roll_step or len(rollout_targets) != args.roll_step:
+        raise ValueError(
+            f"rollout 预测步数和目标步数不一致: "
+            f"pred={len(predictions)}, target={len(rollout_targets)}, args.roll_step={args.roll_step}"
+        )
+
+
+def _summarize_lead_rmse(lead_loss_dicts, total_samples, args):
+    if total_samples == 0:
+        raise ValueError("评估集为空，无法计算 RMSE")
+    lead_results = []
+    for lead_idx, loss_dict in enumerate(lead_loss_dicts, start=1):
+        avg_rmse_dict = {name: value / total_samples for name, value in loss_dict.items()}
+        avg_total_rmse = sum(avg_rmse_dict.values()) / len(avg_rmse_dict)
+        lead_results.append({
+            "lead_step": lead_idx,
+            "lead_days": lead_idx * args.timestep / 24,
+            "avg": avg_total_rmse,
+            "vars": avg_rmse_dict,
+        })
+    return lead_results
+
+
+def _print_lead_rmse_results(lead_results, logger):
+    for result in lead_results:
+        lead_idx = result["lead_step"]
+        lead_days = result["lead_days"]
+        _log_message(logger, f"\n📊 Aurora weighted lead {lead_idx:02d} ({lead_days:.2f} day) RMSE Results:")
+        _log_message(logger, f"  - RMSE [ avg]: {result['avg']:.12f}")
+        for var, rmse_val in result["vars"].items():
+            _log_message(logger, f"  - RMSE [{var:>4}]: {rmse_val:.12f}")
 
 @torch.no_grad()
-def evaluate(model, test_loader,args, logger,device="cuda"):
-    static_vars_z, static_vars_lsm, static_vars_slt = static_var()
+def evaluate(model, test_loader,args, logger,device="cuda", return_details=False):
+    static_vars_z, static_vars_lsm, static_vars_slt = static_var(
+        static_path=args.static_path,
+        target_size=(args.target_height, args.target_width),
+    )
+    args.static_vars_z = static_vars_z.to(device).requires_grad_(False)
+    args.static_vars_lsm = static_vars_lsm.to(device).requires_grad_(False)
+    args.static_vars_slt = static_vars_slt.to(device).requires_grad_(False)
     model.eval()
-    total_loss = 0.0
 
     # 初始化各变量的 loss 累加器
-    loss_dict = {
-        "2t": 0.0, "10u": 0.0, "10v": 0.0,"tp": 0.0,
-        "z": 0.0, "u": 0.0, "v": 0.0,
-        "t": 0.0, "r": 0.0,
-        "sshf":0.0,"slhf":0.0
-    }
-    nan_num=0   
+    lead_loss_dicts = [
+        {name: 0.0 for name in args.eval_vars}
+        for _ in range(args.roll_step)
+    ]
+
+    total_samples = 0 # 记录总的时间步数 (T)
+    reused_samples = 0
     with torch.no_grad():
-        for (images, targets) in tqdm(test_loader, desc="Evaluating", leave=False):
+        for (images, targets) in tqdm(test_loader, desc="Evaluating", leave=True):
+            save_path = None
+            if args.roll_step > 1:
+                rollout_targets = _stack_rollout_targets(targets, device)
+                if args.save_pt:
+                    os.makedirs(args.save_pt_dir, exist_ok=True)
+                    save_path = os.path.join(args.save_pt_dir, f"{targets[0]['filename']}.pt")
+                    if os.path.isfile(save_path):
+                        if _has_invalid_tensor(*rollout_targets):
+                            rollout_targets = list(_fix_invalid_tensors(*rollout_targets))
+                        prediction = torch.load(save_path, map_location="cpu", weights_only=False)
+                        _validate_lead_count(prediction, rollout_targets, args)
+                        batch_size = rollout_targets[0].shape[0]
+                        total_samples += batch_size
+                        reused_samples += batch_size
+                        for lead_idx, pred in enumerate(prediction):
+                            lead_loss_dicts[lead_idx] = compute_rmse(
+                                lead_loss_dicts[lead_idx], pred.to(device), rollout_targets[lead_idx], args
+                            )
+                        continue
+            else:
+                rollout_targets = [torch.stack([t['tgt'] for t in targets], dim=0).to(device)]
+
             images_1 = torch.stack([im[0].float() for im in images], dim=0).to(device)
             images_2 = torch.stack([im[1] for im in images], dim=0).to(device)
-            target=torch.stack([t['tgt'] for t in targets],dim=0).cuda()
-            if torch.isnan(images_1).any() or torch.isinf(images_1).any() or torch.isnan(images_2).any() or torch.isinf(images_2).any() or torch.isnan(target).any() or torch.isinf(target).any():
-                nan_num+=1
-                # print("Input has NaN or Inf!")
-                continue  # 跳过这个 batch，防止训练崩溃
-            var_2t = torch.stack([images_1[:, 0], images_2[:, 0]], dim=1)
-            var_10u = torch.stack([images_1[:, 1], images_2[:, 1]], dim=1)
-            var_10v = torch.stack([images_1[:, 2], images_2[:, 2]], dim=1)
-            var_tp = torch.stack([images_1[:, 3], images_2[:, 3]], dim=1)
-            var_z = torch.stack([images_1[:, 4:17], images_2[:, 4:17]], dim=1)
-            var_u = torch.stack([images_1[:, 17:30], images_2[:, 17:30]], dim=1)
-            var_v = torch.stack([images_1[:, 30:43], images_2[:, 30:43]], dim=1)
-            var_t = torch.stack([images_1[:, 43:56], images_2[:, 43:56]], dim=1)
-            var_r = torch.stack([images_1[:, 56:69], images_2[:, 56:69]], dim=1)
-            var_sshf = torch.stack([images_1[:, 69], images_2[:, 69]], dim=1)  # [B, sshf, H, W]
-            var_slhf = torch.stack([images_1[:, 70], images_2[:, 70]], dim=1)
+            if args.roll_step > 1:
+                tensors_to_check = (images_1, images_2, *rollout_targets)
+                if _has_invalid_tensor(*tensors_to_check):
+                    fixed_tensors = _fix_invalid_tensors(*tensors_to_check)
+                    images_1, images_2 = fixed_tensors[0], fixed_tensors[1]
+                    rollout_targets = list(fixed_tensors[2:])
+            else:
+                if _has_invalid_tensor(images_1, images_2, rollout_targets[0]):
+                    images_1, images_2, rollout_targets[0] = _fix_invalid_tensors(images_1, images_2, rollout_targets[0])
             time=tuple(hours_to_datetime(t['filename']) for t in targets)
-            batch=Batch(
-                surf_vars={"2t": var_2t, "10u":var_10u, "10v":var_10v,"tp":var_tp, "sshf":var_sshf,"slhf":var_slhf},
-                static_vars={"lsm":static_vars_lsm, "z":static_vars_z, "slt":static_vars_slt},
-                atmos_vars={"z":var_z, "u":var_u, "v":var_v, "t":var_t, "r":var_r},
-                metadata=Metadata(
-                    lat=torch.linspace(90, -90, 128),
-                    lon=torch.linspace(0, 360, 256 + 1)[:-1],
-                    time=time,
-                    atmos_levels=(50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 850, 925, 1000),
-                ))
+            args.lat_tensor = torch.linspace(90, -90, args.target_height + 1)[:-1].to(device)
+            args.lon_tensor = torch.linspace(0, 360, args.target_width + 1)[:-1].to(device)
+            args.atmos_levels = tuple(args.atmos_levels)
+            batch=build_batch_from_tensor(images_2, time, args, history_tensor=images_1)
+
+
+            batch_size = rollout_targets[0].shape[0]
+            total_samples += batch_size # 累加 T
             with torch.inference_mode():
-                prediction = [pred.to("cpu") for pred in rollout(model, batch, steps=args.roll_step,args=args)]
+                if args.roll_step > 1:
+                    prediction = [pred.to("cpu") for pred in rollout(model, batch, steps=args.roll_step,args=args)]
+                    _validate_lead_count(prediction, rollout_targets, args)
+                    if args.save_pt:
+                        torch.save(prediction, save_path)
+                    for lead_idx, pred in enumerate(prediction):
+                        lead_loss_dicts[lead_idx] = compute_rmse(
+                            lead_loss_dicts[lead_idx], pred.to(device), rollout_targets[lead_idx], args
+                        )
+                else:
+                    prediction = model(batch, args)
+                    final_pred = prediction[1]
+                    lead_loss_dicts[0]=compute_rmse(lead_loss_dicts[0],final_pred,rollout_targets[0],args)
 
-            # prediction = model(batch,args)
-            
-            # 每类变量 MSE
-            loss_dict["2t"] += F.mse_loss(prediction[1].surf_vars["2t"][:, 0], target[:, 0]).item()
-            loss_dict["10u"] += F.mse_loss(prediction[1].surf_vars["10u"][:, 0], target[:, 1]).item()
-            loss_dict["10v"] += F.mse_loss(prediction[1].surf_vars["10v"][:, 0], target[:, 2]).item()
-            loss_dict["tp"] += F.mse_loss(prediction[1].surf_vars["tp"][:, 0], target[:, 3]).item()
-            loss_dict["z"] += F.mse_loss(prediction[1].atmos_vars["z"][:, 0], target[:, 4:17]).item()
-            loss_dict["u"] += F.mse_loss(prediction[1].atmos_vars["u"][:, 0], target[:, 17:30]).item()
-            loss_dict["v"] += F.mse_loss(prediction[1].atmos_vars["v"][:, 0], target[:, 30:43]).item()
-            loss_dict["t"] += F.mse_loss(prediction[1].atmos_vars["t"][:, 0], target[:, 43:56]).item()
-            loss_dict["r"] += F.mse_loss(prediction[1].atmos_vars["r"][:, 0], target[:, 56:69]).item()
-            loss_dict["sshf"] += F.mse_loss(prediction[1].surf_vars["sshf"][:, 0], target[:, 69]).item()
-            # # if torch.isnan(torch.tensor(loss_dict["sshf"])).any():
-            # #     print("SSHf loss is NaN!")
-            loss_dict["slhf"] += F.mse_loss(prediction[1].surf_vars["slhf"][:, 0], target[:, 70]).item()
-
-    # 平均化每项 loss
-    num_batches = len(test_loader)-nan_num
-    avg_loss_dict = {k: v / num_batches for k, v in loss_dict.items()}
-    avg_total_loss = sum(avg_loss_dict.values()) / len(avg_loss_dict)
-
-    # 打印每项 loss
-    print("\n📊 Evaluation Results:")
-    for var, loss in avg_loss_dict.items():
-        
-        if logger==None:
-            print(f"  - RMSE [{var:>4}]: {loss**0.5:.12f}")
-        else:
-            logger.info(f"  - RMSE [{var:>4}]: {loss**0.5:.12f}")
-    if logger==None:
-        print(f"✅ Avg Total Eval RMSE : {avg_total_loss**0.5:.6f}\n")
-    else:
-        logger.info(f"Avg Total Eval RMSE : {avg_total_loss**0.5:.6f}\n")
-    return avg_total_loss 
+                # --- 核心修改：加权 RMSE 而不是 MSE ---
+             # 结果计算：除以总样本数 T
+    if reused_samples:
+        _log_message(logger, f"Reused {reused_samples} existing prediction file(s); model rollout was skipped.")
+    lead_results = _summarize_lead_rmse(lead_loss_dicts, total_samples, args)
+    _print_lead_rmse_results(lead_results, logger)
+    if return_details:
+        return lead_results
+    return lead_results[-1]["avg"]
 
 
 if __name__ == "__main__":
     args = get_args()
     print(args)
-    surf_stats=mean_std_1d()
-    static_vars_z, static_vars_lsm, static_vars_slt = static_var()
+    device = torch.device(args.device if torch.cuda.is_available() or args.device == "cpu" else "cpu")
 
-    model = AuroraPretrained(autocast=True,use_lora=True,stabilise_level_agg=True,
-                            surf_vars=("2t", "10u", "10v",  "tp","sshf","slhf"),
-                            atmos_vars=("z", "u", "v", "t",  "r"),
-                            surf_stats=surf_stats
-                            )
-    
-
-    model.load_checkpoint_local('ckpt/aurora-0.25-pretrained.ckpt',strict=False)
-    model=model.cuda()
-    model.train()
-    model.configure_activation_checkpointing()
+    model = AuroraPretrained(
+        autocast=args.use_amp,
+        use_lora=args.use_lora,
+        stabilise_level_agg=args.stabilise_level_agg,
+        timestep=timedelta(hours=args.timestep),
+        surf_vars=tuple(args.surf_vars),
+        atmos_vars=tuple(args.atmos_vars),
+        # surf_stats=surf_stats
+    )
 
 
-    CustomAuroraModel = CustomAurora(model).cuda()
-    start_epoch = 0
-    save_dir = "./aurora_checkpoints"
-    os.makedirs(save_dir, exist_ok=True)
+    model.load_checkpoint_local(args.pretrained,strict=False)
+    model=model.to(device)
+    if args.activation_checkpointing:
+        model.configure_activation_checkpointing()
+
+
+    CustomAuroraModel = CustomAurora(
+        model,
+        timestep=timedelta(hours=args.timestep),
+        land_vars=tuple(args.land_vars),
+        target_height=args.target_height,
+        target_width=args.target_width,
+        atmos_levels=tuple(args.atmos_levels),
+    ).to(device)
 
 
     for n, p in CustomAuroraModel.named_parameters():
         if 'lora_proj' in n or 'lora_qkv' in n:
             p.requires_grad = True
-            # print(n)
-        elif n.startswith('model.encoder.surf_token_embeds.weights') and ('10u' in n or '10v' in n or '2t' in n or 'tp' in n or 'sshf' in n or 'slhf' in n):
+        elif n.startswith('model.encoder.surf_token_embeds.weights') and \
+             any(var in n for var in args.surf_vars):
             p.requires_grad = True
         elif n.startswith('model.encoder.atmos_token_embeds.weights'):
             p.requires_grad = True
-        elif 'surf_heads' in n and ('10u' in n or '10v' in n or '2t' in n or 'tp' in n or 'sshf' in n or 'slhf' in n):
+        elif 'surf_heads' in n and \
+               any(var in n for var in args.surf_vars):
             p.requires_grad = True
         elif 'atmos_heads' in n:
             p.requires_grad = True
@@ -138,19 +229,22 @@ if __name__ == "__main__":
         else:
             p.requires_grad = False
 
-        
+    # ========== 优化5: 降低学习率，增加稳定性 ==========
     param_dicts = [
         {
-        "params": [p for n, p in CustomAuroraModel.named_parameters()
-                if p.requires_grad and (('lora_proj' in n and 'hypernetwork' not in n) or ('lora_qkv' in n and 'hypernetwork' not in n))]},
-        { ## others
-        "params": [p for n, p in CustomAuroraModel.named_parameters()
-                if p.requires_grad and (n.startswith('model.encoder.surf_token_embeds.weights') or 
-                                        n.startswith('model.encoder.atmos_token_embeds.weights') or 
-                                        'surf_heads' in n or 'atmos_heads' in n
-                                        or 'hypernetwork' in n)],
-        "lr": 1e-3,
-        },]
+            "params": [p for n, p in CustomAuroraModel.named_parameters()
+                      if p.requires_grad and ('lora_proj' in n or
+                                             'lora_qkv' in n or 'hypernetwork' in n)],
+            "lr": args.lr1,  # 1e-4
+        },
+        {
+            "params": [p for n, p in CustomAuroraModel.named_parameters()
+                      if p.requires_grad and (n.startswith('model.encoder.surf_token_embeds.weights') or
+                                             n.startswith('model.encoder.atmos_token_embeds.weights') or
+                                             ('surf_heads' in n and 'hypernetwork' not in n) or ('atmos_heads' in n and 'hypernetwork' not in n))],
+            "lr": args.lr2,  # 5e-5
+        },
+    ]
 
     n_parameters = sum(p.numel() for p in CustomAuroraModel.parameters() if p.requires_grad)
     print('number of leanable params:', n_parameters)
@@ -163,24 +257,36 @@ if __name__ == "__main__":
         )
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optim, 10)
 
-    
-    print(f"🔁 加载最新断点: {args.ckpt}")
-    checkpoint = torch.load(args.ckpt)
+
+
+    if not args.ckpt:
+        raise ValueError("独立运行 eval.py 时必须通过 --ckpt 指定待评估 checkpoint")
+    checkpoint = torch.load(args.ckpt, map_location='cpu')
+    current_epoch = checkpoint['epoch']
+    print(f"🔁 加载最新断点: {args.ckpt}  epoch: {current_epoch}")
     CustomAuroraModel.load_state_dict(checkpoint['model_state_dict'])
-    optim.load_state_dict(checkpoint['optimizer_state_dict'])
-    lr_scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+    # optim.load_state_dict(checkpoint['optimizer_state_dict'])
+    # lr_scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
         # print(f"✅ 成功恢复到 epoch {start_epoch}")
-        
+
     CustomAuroraModel.eval()
 
-    test_dataset= WeatherBench128(data_folder = "/sharefiles2/guoyixin/datasets/new_weather_tensors2",n=6,train=False,roll_step=args.roll_step)
+    test_dataset= WeatherBench2(
+        data_folder=args.data_folder,
+        roll_step=(args.roll_step-1),
+        timestep=args.timestep,
+        years=args.test_year,
+        args=args,
+        num_rollout_targets=args.roll_step if args.roll_step > 1 else 0,
+        return_train_aux_target=False,
+    )
     test_loader = DataLoader(
         dataset=test_dataset,
         collate_fn=custom_collate, batch_size=1,
-        num_workers=4, pin_memory=False, drop_last=True)
+        num_workers=args.test_num_workers, pin_memory=args.test_pin_memory, drop_last=args.drop_last)
     # 假设 test_loader 已经定义并加载了测试数据
     # 例如: test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, collate_fn=custom_collate)
-    
+
     # evaluate 函数会打印每个变量的 MSE loss 和平均总 loss
     logger=None
-    evaluate(CustomAuroraModel, test_loader,args,logger)  # 请确保 test_loader 已定义并包含测试数据
+    evaluate(CustomAuroraModel, test_loader,args,logger,device=str(device))  # 请确保 test_loader 已定义并包含测试数据

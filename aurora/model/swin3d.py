@@ -438,7 +438,7 @@ class Swin3DTransformerBlock(nn.Module):
             act_layer=act_layer,
             drop=drop,
         )
-        
+
         self.hypernetwork_fc=nn.Linear(1024,256)
     def forward(
         self,
@@ -469,7 +469,7 @@ class Swin3DTransformerBlock(nn.Module):
 
         shortcut = x
         x = x.view(B, C, H, W, D)#[bs,4,32,64,512]
-            
+
         # Perform cyclic shift.
         if not all(s == 0 for s in ss):
             shifted_x = torch.roll(x, shifts=(-ss[0], -ss[1], -ss[2]), dims=(1, 2, 3))
@@ -488,8 +488,32 @@ class Swin3DTransformerBlock(nn.Module):
         x_windows = window_partition_3d(shifted_x, ws)  # (nW*B, ws, ws, D)
         x_windows = x_windows.view(-1, ws[0] * ws[1] * ws[2], D)  # (nW*B, ws*ws, D)
         #保证超网络参数维度一致
-        if hyp_x!=None:
-            hyp_windows=self.hypernetwork_fc(hyp_x[0][2])  
+        if hyp_x is not None:
+
+            # 1. 全局池化 (Global Pooling)
+            # 我们需要每个样本生成一个向量，而不是保留整个 Feature Map
+            # [B, L, 1024] -> [B, 1024]
+            # 这一步对应你之前的 pooled = mean(dim) 思想
+            hyp_feat = hyp_x.mean(dim=1)
+
+            # 2. 投影 (Projection)
+            # [B, 1024] -> [B, 256]
+            hyp_vec = self.hypernetwork_fc(hyp_feat)
+
+            # 3. 计算窗口数量 (Number of Windows)
+            # x_windows.shape[0] 是 B * nW (例如 100)
+            # B 是原始 Batch Size (例如 2)
+            total_batch_size = x_windows.shape[0]
+            num_windows = total_batch_size // B  # 例如 100 // 2 = 50
+
+            # 4. 扩展与重复 (Expand & Repeat)
+            # 逻辑：把 [B, 256] 变成 [B, nW, 256] 然后展平为 [B*nW, 256]
+            # 这样第 0-49 个窗口（属于图1）都会拿到图1的 hyp_vec
+            # 第 50-99 个窗口（属于图2）都会拿到图2的 hyp_vec
+
+            hyp_windows = hyp_vec.unsqueeze(1) # [B, 1, 256]
+            hyp_windows = hyp_windows.expand(-1, num_windows, -1) # [B, nW, 256]
+            hyp_windows = hyp_windows.reshape(-1, 256)
         else:
             hyp_windows=None
         # W-MSA/SW-MSA. Has shape (nW*B, ws*ws, D).
@@ -1048,8 +1072,6 @@ class Swin3DTransformerBackbone(nn.Module):
 
         skips = []
         for i, layer in enumerate(self.encoder_layers):
-
-            # x_hyp=hyp_x[0][i].repeat(1,4,1)
             x, x_unscaled = layer(x, hyp_x,c, all_enc_res[i], rollout_step=rollout_step)
             skips.append(x_unscaled)
         for i, layer in enumerate(self.decoder_layers):

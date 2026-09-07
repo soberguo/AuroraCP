@@ -45,7 +45,7 @@ class MLP(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Run the MLP."""
         return self.net(x)
-    
+
 class CustomAurora(nn.Module):
     def __init__(self, model,
                  window_size: tuple[int, int, int] = (2, 6, 12),
@@ -61,17 +61,21 @@ class CustomAurora(nn.Module):
                 decoder_depths: tuple[int, ...] = (2, 2, 2),
                 decoder_num_heads: tuple[int, ...] = (16, 8, 4),
                 embed_dim: int = 256,
-            
+
                 mlp_ratio: float = 4.0,
                 drop_path: float = 0.0,
                 drop_rate: float = 0.0,
                 timestep: timedelta = timedelta(hours=6),
-                
+                land_vars: tuple[str, ...] = ("sshf", "slhf", "vswl"),
+                target_height: int = 120,
+                target_width: int = 240,
+                atmos_levels: tuple[int, ...] = (1000, 925, 850, 700, 600, 500, 400, 300, 250, 200, 150, 100, 50),
+
                  ):
         super(CustomAurora, self).__init__()
         self.model = model
         self.surf_stats=self.model.surf_stats
-        
+
 
         self.hypernetwork_backbone = Swin3DTransformerBackbone(
             window_size=window_size,
@@ -89,7 +93,7 @@ class CustomAurora(nn.Module):
         self.timestep=timestep
         self.embed_dim=embed_dim
 
-        surf_vars=("sshf", "slhf")  # Surface variables to use.
+        surf_vars=tuple(land_vars)  # Surface variables to use.
         max_history_size= 2
         assert max_history_size > 0, "At least one history step is required."
         self.hypernetwork_surf_token_embeds = LevelPatchEmbed(surf_vars, self.patch_size, embed_dim, max_history_size)
@@ -109,9 +113,9 @@ class CustomAurora(nn.Module):
             {name: nn.Linear(embed_dim*2, self.patch_size**2) for name in surf_vars}
         )
         # ========== 优化1: 预先创建常用的张量，避免重复创建 ==========
-        self.register_buffer('lat_buffer', torch.linspace(90, -90, 128))
-        self.register_buffer('lon_buffer', torch.linspace(0, 360, 256 + 1)[:-1])
-        self.atmos_levels = (50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 850, 925, 1000)
+        self.register_buffer('lat_buffer', torch.linspace(90, -90, target_height + 1)[:-1])
+        self.register_buffer('lon_buffer', torch.linspace(0, 360, target_width + 1)[:-1])
+        self.atmos_levels = tuple(atmos_levels)
     def _create_metadata(self, time):
         """复用metadata创建逻辑"""
         return Metadata(
@@ -130,19 +134,19 @@ class CustomAurora(nn.Module):
     def anti_biaozhunhua(self,batch):
         batch =batch.unnormalise(surf_stats=self.surf_stats)
         return batch
-    
+
     def small_model(self,batch):
         batch=self.biaozhunhua(batch)
         H, W = batch.spatial_shape#128,256
         patch_res = (self.latent_levels,H // (self.patch_size*2),W // (self.patch_size*2))
-        
+
         #encoder
         x_surf = torch.stack(tuple(batch.surf_vars.values()), dim=2)#[bs,2,3,128,256]
         surf_vars = tuple(batch.surf_vars.keys())
 
         B, T,  C, H, W = x_surf.size()
         lat, lon = batch.metadata.lat, batch.metadata.lon#128,256
-        
+
         lat, lon = lat.to(dtype=torch.float32), lon.to(dtype=torch.float32)
         assert lat.shape[0] == H and lon.shape[-1] == W
 
@@ -187,8 +191,8 @@ class CustomAurora(nn.Module):
         x = x + absolute_time_embed.unsqueeze(1)  # (B, L, D) + (B, 1, D)
 
         x = self.hypernetwork_pos_drop(x)#torch.Size([40, 2048, 256])
-        #提取backbone feature    
-        x,enc_feat,dec_feat = self.hypernetwork_backbone(x,
+        #提取backbone feature
+        hyp_x = self.hypernetwork_backbone(x,
                           lead_time=self.timestep,
                           patch_res=patch_res,
                           rollout_step=batch.metadata.rollout_step,)#[bs, 2048, 1024]
@@ -197,30 +201,34 @@ class CustomAurora(nn.Module):
 
         # # Decode surface vars. Run the head for every surface-level variable.
         # x_surf = torch.stack([self.hypernetwork_surf_heads[name](x) for name in surf_vars], dim=-1)#[bs,512,1,16,2]
-        
+
         # x_surf = x_surf.reshape(*x_surf.shape[:3], -1)  # (B, L, 1, V_S*p*p)  [bs, 512, 1, 32]
         # surf_preds = x_surf.reshape(shape=(B, 32, 64, 1, 4, 4, len(surf_vars)))#torch.Size([2, 2048, 1, 96])->torch.Size([2, 32, 64, 1, 4, 4, 6])
         # surf_preds = rearrange(surf_preds, "B H W C P1 P2 V -> B V C H P1 W P2")#torch.Size([2, 6, 1, 32, 4, 64, 4])
         # surf_preds = surf_preds.reshape(shape=(B, len(surf_vars), 1, 32 * 4, 64 * 4))#[2, len(surf_vars), 1, 128, 256]
         # surf_preds = surf_preds.squeeze(2) # (B, V_S, H, W)[bs, len(surf_vars), 128, 256]
         # surf_preds = torch.clamp(surf_preds, min=-10, max=10)
-        
-        return enc_feat,dec_feat
+
+        return hyp_x
     def forward(self, batch,args):
         metadata = self._create_metadata(batch.metadata.time)
         big_batch=Batch(
-                surf_vars={"2t": batch.surf_vars['2t'], "10u":batch.surf_vars['10u'], "10v":batch.surf_vars['10v'],"tp":batch.surf_vars['tp'],"sshf":batch.surf_vars['sshf'], "slhf":batch.surf_vars['slhf']},
+            surf_vars={name: batch.surf_vars[name] for name in args.surf_vars},
                 static_vars={"lsm":batch.static_vars['lsm'], "z":batch.static_vars['z'], "slt":batch.static_vars['slt']},
-                atmos_vars={"z":batch.atmos_vars['z'], "u":batch.atmos_vars['u'], "v":batch.atmos_vars['v'], "t":batch.atmos_vars['t'], "r":batch.atmos_vars['r']},
+            atmos_vars={name: batch.atmos_vars[name] for name in args.atmos_vars},
                 metadata=metadata)
-        small_batch=Batch(
-                surf_vars={"sshf":batch.surf_vars['sshf'], "slhf":batch.surf_vars['slhf']},
-                static_vars={},
-                atmos_vars={},
-                metadata=metadata)
-        enc_feat,_=self.small_model(small_batch)
-        hyp_x=tuple((enc_feat,_))
-        
-        
+        # if args.enable_land_branch:
+        #     small_batch=Batch(
+        #         surf_vars={name: batch.surf_vars[name] for name in args.land_vars},
+        #         static_vars={},
+        #         atmos_vars={},
+        #         metadata=metadata)
+        #     hyp_x=self.small_model(small_batch)
+        # else:
+        #     hyp_x=None
+        hyp_x=None
+
+
+
+
         return self.model.forward(big_batch,hyp_x)
-        
