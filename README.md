@@ -1,49 +1,45 @@
 # AuroraCP
 
-**AuroraCP** 是一个基于 Aurora 预训练模型的多变量天气微调方法。它在 Aurora
-原有的地表变量和多层大气变量之外，进一步学习三个与陆面能量和水分过程相关的
-变量：
+**AuroraCP** is a multivariable weather fine-tuning method based on the pretrained Aurora model. In addition to Aurora's original surface variables and multilevel atmospheric variables, it learns three variables related to land-surface energy and water processes:
 
-- `sshf`：地表感热通量（surface sensible heat flux）
-- `slhf`：地表潜热通量（surface latent heat flux）
-- `vswl`：土壤体积含水量（volumetric soil water layer）
+- `sshf`: surface sensible heat flux
+- `slhf`: surface latent heat flux
+- `vswl`: volumetric soil water layer
 
-AuroraCP 通过单步监督、两步 rollout 监督和 replay-buffer rollout 三个阶段逐步提高长期预测
-稳定性。
+AuroraCP progressively improves long-range forecast stability through three stages: single-step supervision, two-step rollout supervision, and replay-buffer rollout.
 
-## 1. 数据准备
+## 1. Data Preparation
 
-### 1.1 环境配置
+### 1.1 Environment Setup
 
-推荐环境为 Linux、Python 3.10、PyTorch 2.7.1、CUDA 12.8：
+The recommended environment is Linux, Python 3.10, PyTorch 2.7.1, and CUDA 12.8:
 
 ```bash
 conda env create -f environment.yml
 conda activate aurora
 ```
 
-检查 PyTorch 和 GPU：
+Check PyTorch and GPU availability:
 
 ```bash
 python -c "import torch; print(torch.__version__, torch.version.cuda); print(torch.cuda.is_available(), torch.cuda.device_count())"
 nvidia-smi
 ```
 
-### 1.2 预训练权重和静态变量
+### 1.2 Pretrained Weights and Static Variables
 
-训练前需要准备 Aurora 预训练权重以及静态地理变量：
+Prepare the pretrained Aurora weights and static geographic variables before training:
 
 ```text
 ckpt/aurora-0.25-pretrained.ckpt
 ckpt/aurora-0.25-static.pickle
 ```
 
-这些大文件不包含在 Git 仓库中。默认训练脚本从上述位置加载，也可以通过
-`PRETRAINED` 指定其他预训练权重。
+These large files are not included in the Git repository. By default, the training scripts load them from the locations above. You can also specify a different pretrained checkpoint with `PRETRAINED`.
 
-### 1.3 数据目录与文件格式
+### 1.3 Data Directory and File Format
 
-数据按年份存放，每个 `.pt` 文件对应一个时刻：
+Data are organized by year, with each `.pt` file corresponding to one time step:
 
 ```text
 weatherbench2_72var/
@@ -55,32 +51,29 @@ weatherbench2_72var/
 └── ...
 ```
 
-每个文件应为 `float32 [72, 120, 240]` tensor。文件名采用 `YEAR-HOURS.pt`，
-`HOURS` 表示从当年 1 月 1 日 00:00 开始累计的小时数。数据原始采样间隔为 6
-小时，训练时可以设置 6 小时或 12 小时预测步长。
+Each file must be a `float32 [72, 120, 240]` tensor. File names follow the `YEAR-HOURS.pt` convention, where `HOURS` is the number of hours elapsed since 00:00 on January 1 of that year. The source data have a 6-hour sampling interval. Training can use either a 6-hour or 12-hour forecast step.
 
-AuroraCP 使用的通道映射如下：
+AuroraCP uses the following channel mapping:
 
-| 类型 | 变量 | 数据通道 |
+| Type | Variables | Data channels |
 | --- | --- | --- |
-| 原始地表变量 | `2t`, `10u`, `10v`, `msl` | 0, 1, 2, 3 |
-| 位势高度 | `z`，13 个气压层 | 4:17 |
-| 纬向风 | `u`，13 个气压层 | 17:30 |
-| 经向风 | `v`，13 个气压层 | 30:43 |
-| 温度 | `t`，13 个气压层 | 43:56 |
-| 比湿 | `q`，13 个气压层 | 56:69 |
-| AuroraCP 陆面变量 | `sshf`, `slhf`, `vswl` | 69, 70, 71 |
+| Original surface variables | `2t`, `10u`, `10v`, `msl` | 0, 1, 2, 3 |
+| Geopotential | `z`, 13 pressure levels | 4:17 |
+| Zonal wind | `u`, 13 pressure levels | 17:30 |
+| Meridional wind | `v`, 13 pressure levels | 30:43 |
+| Temperature | `t`, 13 pressure levels | 43:56 |
+| Specific humidity | `q`, 13 pressure levels | 56:69 |
+| AuroraCP land variables | `sshf`, `slhf`, `vswl` | 69, 70, 71 |
 
-默认气压层为：
+The default pressure levels are:
 
 ```text
 1000, 925, 850, 700, 600, 500, 400, 300, 250, 200, 150, 100, 50 hPa
 ```
 
-### 1.4 启用 AuroraCP 的三个陆面变量
+### 1.4 Enabling the Three AuroraCP Land Variables
 
-训练 `sshf/slhf/vswl` 前，需要确认 [args.py](args.py) 中使用的是 7 个 surface
-变量配置：
+Before training `sshf/slhf/vswl`, verify that [args.py](args.py) uses the seven-surface-variable configuration:
 
 ```python
 DEFAULT_MAIN_SURF_VARS = ["2t", "10u", "10v", "msl"]
@@ -92,27 +85,17 @@ args.surf_vars = args.main_surf_vars + args.land_vars
 args.surf_channels = {**args.main_surf_channels, **args.land_channels}
 ```
 
+## 2. Training
 
+### 2.1 Three-Stage Training Workflow
 
-## 2. 训练
-
-### 2.1 三阶段训练流程
-
-
-
-| 阶段 | 训练入口 | 累计 epoch | 默认训练年份 | 训练方式 | 默认学习率 |
+| Stage | Entry point | Epoch range | Default training years | Training method | Default learning rate |
 | --- | --- | ---: | --- | --- | --- |
-| Stage 1 | `main.py` | 0 -> 20 | 1979-2017 | 单步监督 | LoRA `1e-3`，embeddings/heads `1e-4` |
-| Stage 2 | `main.py` | 20 -> 30 | 2010-2017 | 两步 rollout 联合监督 | 两组均为 `5e-5` |
-| Stage 3 | `rollout_finetune.py` | 30 -> 100 | 2010-2017 | replay-buffer rollout | 两组均为 `5e-5` |
+| Stage 1 | `main.py` | 0 -> 20 | 1979-2017 | Single-step supervision | LoRA `1e-3`, embeddings/heads `1e-4` |
+| Stage 2 | `main.py` | 20 -> 30 | 2010-2017 | Joint two-step rollout supervision | `5e-5` for both groups |
+| Stage 3 | `rollout_finetune.py` | 30 -> 100 | 2010-2017 | Replay-buffer rollout | `5e-5` for both groups |
 
-
-
-
-
-### 2.2 训练
-
-
+### 2.2 Training
 
 ```bash
 PYTHON_BIN="$(which python)" \
@@ -123,14 +106,11 @@ LOG_DIR=log/auroracp \
 ./train_three_stage.sh
 ```
 
+## 3. Evaluation
 
+### 3.1 Standalone Evaluation
 
-
-## 3. 评估
-
-### 3.1 独立评估
-
-以下命令对 Stage 3 最终 checkpoint 执行 20-step rollout 评估：
+The following command performs a 20-step rollout evaluation on the final Stage 3 checkpoint:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python eval.py \
@@ -144,17 +124,17 @@ CUDA_VISIBLE_DEVICES=0 python eval.py \
   --roll_step 20
 ```
 
-当 7 个 surface 变量配置正确时，评估会同时报告：
+When the seven-surface-variable configuration is correct, the evaluation reports results for:
 
-- 原始地表变量：`2t`、`10u`、`10v`、`msl`
-- AuroraCP 陆面变量：`sshf`、`slhf`、`vswl`
-- 13 层大气变量：`z`、`u`、`v`、`t`、`q`
+- Original surface variables: `2t`, `10u`, `10v`, `msl`
+- AuroraCP land variables: `sshf`, `slhf`, `vswl`
+- Atmospheric variables at 13 levels: `z`, `u`, `v`, `t`, `q`
 
-评估指标为按变量累计的空间加权 RMSE。
+The evaluation metric is spatially weighted RMSE aggregated by variable.
 
-### 3.2 保存预测结果
+### 3.2 Saving Prediction Results
 
-加入 `--save_pt` 可以保存每个样本的 rollout 输出：
+Add `--save_pt` to save the rollout output for each sample:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python eval.py \
@@ -169,5 +149,3 @@ CUDA_VISIBLE_DEVICES=0 python eval.py \
   --save_pt \
   --save_pt_dir results/auroracp_epoch100_roll20
 ```
-
-
